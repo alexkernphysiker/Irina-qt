@@ -120,7 +120,7 @@ void GenRegPlugin(TranslationUnit* registerClass, ClassUnit* myclass, QString ca
 	registerClass->AddInclude("<plugin_interface.h>",IncludeInHeader)->
 			AddInstruction((new CppNested(QString("SObject*")+" myload(QDataStream &str,SortProject *father)",true))->
 						   AddLine("return new "+myclass->Name()+"(str,father);"))->
-			AddInstruction((new CppNested(QString("void")+" myadd(SortProject *father, SObject*)",true))->
+            AddInstruction((new CppNested(QString("SObject*")+" myadd(SortProject *father, SObject*)",true))->
 						   Add(addinstruction)
 						)->
 			AddUnit(regclass)->
@@ -221,7 +221,7 @@ void GenDataPlugin(QString projName, QDir projDir){
 				 AddLine("QString str=QFileDialog::getOpenFileName(NULL,\"Choose file\",QDir::currentPath(),\"*.*\",NULL,	QFileDialog::DontResolveSymlinks);")->
 				 AddLine("str=QDir::current().relativeFilePath(str);")->
 				 AddLine("if((str!=NULL)&(str!=\"\"))")->
-				 AddLine("father->Add( new "+myclass->Name()+"(str,father));")
+                 AddLine("return new "+myclass->Name()+"(str,father);")
 				);
 	GenProjectFile(projName,targetname,projDir, QList<TranslationUnit*>()<<&mainProjClass<<&registerClass);
 }
@@ -256,7 +256,7 @@ void GenFuncPlugin(QString projName, QDir projDir){
 	registerClass.SetDir(projDir)->
 			AddInclude(QString("\"")+projName+".h\"");
 	GenRegPlugin(&registerClass, myclass,"SoCatFormula",targetname,"MYTYPESIGN, SOT_Formula",
-				 new Instruction("father->Add( new "+myclass->Name()+"(father));")
+                 new Instruction("return new "+myclass->Name()+"(father);")
 				);
 	GenProjectFile(projName,targetname,projDir, QList<TranslationUnit*>()<<&mainProjClass<<&registerClass<<form,uis);
 	delete form;
@@ -292,7 +292,7 @@ void GenFilterPlugin(QString projName, QDir projDir){
 	registerClass.SetDir(projDir)->
 			AddInclude(QString("\"")+projName+".h\"");
 	GenRegPlugin(&registerClass, myclass,"SoCatFilter",targetname,"MYTYPESIGN, SOT_EFilter",
-				 new Instruction("father->Add( new "+myclass->Name()+"(father));")
+                 new Instruction("return new "+myclass->Name()+"(father);")
 				);
 	GenProjectFile(projName,targetname,projDir, QList<TranslationUnit*>()<<&mainProjClass<<&registerClass<<form,uis);
 	delete form;
@@ -329,7 +329,7 @@ void GenOtherPlugin(QString projName, QDir projDir){
 	registerClass.SetDir(projDir)->
 			AddInclude(QString("\"")+projName+".h\"");
 	GenRegPlugin(&registerClass, myclass,"SoCatOther",targetname,"MYTYPESIGN",
-				 new Instruction("father->Add( new "+myclass->Name()+"(father));")
+                 new Instruction("return new "+myclass->Name()+"(father);")
 				);
 	GenProjectFile(projName,targetname,projDir, QList<TranslationUnit*>()<<&mainProjClass<<&registerClass<<form,uis);
 	delete form;
