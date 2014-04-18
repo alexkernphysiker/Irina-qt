@@ -25,7 +25,6 @@ QT       += core gui
 CONFIG += plugin
 TEMPLATE = lib
 TARGET   = $$qtLibraryTarget(format_txt)
-INCLUDEPATH += ../../DataSorting/Irina-qt-headers
 SOURCES += textfile.cpp \
 	register_textfilelib.cpp
 HEADERS += \

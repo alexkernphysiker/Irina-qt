@@ -25,7 +25,6 @@ QT       += core gui
 CONFIG += plugin
 TEMPLATE = lib
 TARGET   = $$qtLibraryTarget(formats_kinr)
-INCLUDEPATH += ../../DataSorting/Irina-qt-headers
 SOURCES += \
 	KINR.cpp \
 	register_kinr.cpp
