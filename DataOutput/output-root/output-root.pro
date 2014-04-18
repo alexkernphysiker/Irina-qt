@@ -1,5 +1,4 @@
 #author: alex_kernphysiker@privatdemail.net
-
 #build location
 unix: DESTDIR = /home/bin
 win32: DESTDIR = D:/bin
@@ -36,9 +35,7 @@ TEMPLATE = lib
 CONFIG += plugin
 TARGET   = $$qtLibraryTarget(output-root)
 INCLUDEPATH += ../../DataSorting/Irina-qt-headers
-SOURCES += \
-	register-root-output.cpp \
+SOURCES += register-root-output.cpp \
 	outputroot.cpp
-HEADERS += \
-	register-root-output.h \
+HEADERS += register-root-output.h \
 	outputroot.h

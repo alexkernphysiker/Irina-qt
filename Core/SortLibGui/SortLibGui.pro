@@ -1,5 +1,4 @@
 #author: alex_kernphysiker@privatdemail.net
-
 #build location
 unix: DESTDIR = /home/bin
 win32: DESTDIR = D:/bin
@@ -30,7 +29,7 @@ greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 TARGET = SortLibGui
 TEMPLATE = lib
 DEFINES += SORTLIBGUI_LIBRARY
-HEADERS += \
+HEADERS += ../Irina-qt-headers/SortLibGui.h \
 	datafileview.h \
 	valuegb.h \
 	ecounterview.h \
@@ -46,15 +45,13 @@ HEADERS += \
 	dependecyview.h \
 	groupdfview.h \
 	ecalview.h \
-	../Irina-qt-headers/SortLibGui.h \
 	tblfuncview.h \
 	txtview.h \
 	sp1normview.h \
 	sp1normerrview.h \
 	tbltblview.h \
 	expressionstringdialog.h
-FORMS += \
-	sortprojectview.ui \
+FORMS += sortprojectview.ui \
 	datafileview.ui \
 	valuegb.ui \
 	ecounterview.ui \
@@ -75,8 +72,7 @@ FORMS += \
 	sp1normerrview.ui \
 	tbltblview.ui \
 	expressionstringdialog.ui
-SOURCES += \
-	sortprojectview.cpp \
+SOURCES += sortprojectview.cpp \
 	datafileview.cpp \
 	valuegb.cpp \
 	ecounterview.cpp \

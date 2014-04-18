@@ -1,5 +1,4 @@
 #author: alex_kernphysiker@privatdemail.net
-
 #build location
 unix: DESTDIR = /home/bin
 win32: DESTDIR = D:/bin
@@ -25,9 +24,7 @@ QT       += core gui
 CONFIG += plugin
 TEMPLATE = lib
 TARGET   = $$qtLibraryTarget(formats_kinr)
-SOURCES += \
-	KINR.cpp \
+SOURCES += KINR.cpp \
 	register_kinr.cpp
-HEADERS += \
-	KINR.h \
+HEADERS += KINR.h \
 	register_kinr.h

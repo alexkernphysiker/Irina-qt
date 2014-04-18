@@ -1,5 +1,4 @@
 #author: alex_kernphysiker@privatdemail.net
-
 #build location
 unix: DESTDIR = /home/bin
 win32: DESTDIR = D:/bin
@@ -29,9 +28,7 @@ TARGET   = $$qtLibraryTarget(format_datagroup)
 SOURCES += datagroup.cpp \
 	register_datagroup.cpp \
 	datagroupview.cpp
-HEADERS += \
-	datagroup.h \
+HEADERS += datagroup.h \
 	register_datagroup.h \
 	datagroupview.h
-FORMS += \
-	datagroupview.ui
+FORMS += datagroupview.ui

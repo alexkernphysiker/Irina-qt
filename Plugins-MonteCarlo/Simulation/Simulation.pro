@@ -1,5 +1,4 @@
 #author: alex_kernphysiker@privatdemail.net
-
 #build location
 unix: DESTDIR = /home/bin
 win32: DESTDIR = D:/bin
@@ -43,8 +42,7 @@ HEADERS += simulation.h \
 	mixedview.h \
 	binsumview.h \
 	register_simulation.h
-FORMS += \
-	simulationview.ui \
+FORMS += simulationview.ui \
 	randomview.ui \
 	gaussview.ui \
 	mixedview.ui \

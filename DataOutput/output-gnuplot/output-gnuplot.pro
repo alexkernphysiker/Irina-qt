@@ -1,5 +1,4 @@
 #author: alex_kernphysiker@privatdemail.net
-
 #build location
 unix: DESTDIR = /home/bin
 win32: DESTDIR = D:/bin
@@ -33,6 +32,5 @@ HEADERS +=gnuplotter.h \
 	plotterview.h \
 	settingswindow.h \
 	register-gnuplot-ext.h
-FORMS += \
-	plotterview.ui \
+FORMS += plotterview.ui \
 	settingswindow.ui

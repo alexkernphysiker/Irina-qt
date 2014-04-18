@@ -1,5 +1,4 @@
 #author: alex_kernphysiker@privatdemail.net
-
 #build location
 unix: DESTDIR = /home/bin
 win32: DESTDIR = D:/bin
@@ -27,8 +26,7 @@ QT       -= gui
 TARGET = SortLib
 TEMPLATE = lib
 DEFINES += SORTLIB_LIBRARY
-SOURCES += \
-	sortlib_integration.cpp \
+SOURCES += sortlib_integration.cpp \
 	sortlib_sobject.cpp \
 	sortlib_datafile.cpp \
 	sortlib_counters.cpp \
@@ -37,7 +35,6 @@ SOURCES += \
 	sortlib_operators.cpp \
 	sortlib_plotdata.cpp \
 	sortlib_sortproject.cpp
-HEADERS +=\
-	../Irina-qt-headers/SortLib.h \
+HEADERS +=	../Irina-qt-headers/SortLib.h \
 	newtype.h \
 	sortlib_.h

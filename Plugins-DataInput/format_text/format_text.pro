@@ -1,5 +1,4 @@
 #author: alex_kernphysiker@privatdemail.net
-
 #build location
 unix: DESTDIR = /home/bin
 win32: DESTDIR = D:/bin
@@ -27,6 +26,5 @@ TEMPLATE = lib
 TARGET   = $$qtLibraryTarget(format_txt)
 SOURCES += textfile.cpp \
 	register_textfilelib.cpp
-HEADERS += \
-	textfile.h \
+HEADERS += textfile.h \
 	register_textfilelib.h

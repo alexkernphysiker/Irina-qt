@@ -1,5 +1,4 @@
 #author: alex_kernphysiker@privatdemail.net
-
 #build location
 unix: DESTDIR = /home/bin
 win32: DESTDIR = D:/bin
@@ -31,5 +30,4 @@ SOURCES += numericerrorscalculation.cpp \
 HEADERS += numericerrorscalculation.h \
 	thiswidget.h \
 	register_errcalc.h
-FORMS += \
-	thiswidget.ui
+FORMS += thiswidget.ui

@@ -1,5 +1,4 @@
 #author: alex_kernphysiker@privatdemail.net
-
 #build location
 unix: DESTDIR = /home/bin
 win32: DESTDIR = D:/bin
@@ -31,5 +30,4 @@ SOURCES += masks.cpp \
 HEADERS += masks.h \
 	extmaskview.h \
 	register_masks.h
-FORMS += \
-	extmaskview.ui
+FORMS += extmaskview.ui

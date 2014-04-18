@@ -1,5 +1,4 @@
 #author: alex_kernphysiker@privatdemail.net
-
 #build location
 unix: DESTDIR = /home/bin
 win32: DESTDIR = D:/bin
@@ -34,13 +33,11 @@ HEADERS += fbkin.h \
 	ruthview.h \
 	splineview.h \
 	register_fbkin.h
-SOURCES += \
-	fbkin.cpp \
+SOURCES += fbkin.cpp \
 	kinview.cpp \
 	ruthview.cpp \
 	splineview.cpp \
 	register_fbkin.cpp
-FORMS += \
-	kinview.ui \
+FORMS += kinview.ui \
 	ruthview.ui \
 	splineview.ui

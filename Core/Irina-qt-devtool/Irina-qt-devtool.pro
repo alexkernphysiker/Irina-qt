@@ -1,5 +1,4 @@
 #author: alex_kernphysiker@privatdemail.net
-
 #build location
 unix: DESTDIR = /home/bin
 win32: DESTDIR = D:/bin
@@ -30,8 +29,7 @@ QT       += core gui
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 TARGET = Irina-qt-devtool
 TEMPLATE = app
-SOURCES +=\
-		masterwindow.cpp \
+SOURCES +=	masterwindow.cpp \
 	main-createproject.cpp
 HEADERS  += masterwindow.h
 FORMS    += masterwindow.ui

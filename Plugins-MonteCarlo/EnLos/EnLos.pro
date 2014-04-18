@@ -1,5 +1,4 @@
 #author: alex_kernphysiker@privatdemail.net
-
 #build location
 unix: DESTDIR = /home/bin
 win32: DESTDIR = D:/bin
@@ -34,6 +33,5 @@ HEADERS += enlos.h \
 	enlosview.h \
 	enlossintargetview.h \
 	register_enlos.h
-FORMS += \
-	enlosview.ui \
+FORMS += enlosview.ui \
 	enlossintargetview.ui

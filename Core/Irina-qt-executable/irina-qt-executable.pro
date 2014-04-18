@@ -1,5 +1,4 @@
 #author: alex_kernphysiker@privatdemail.net
-
 #build location
 unix: DESTDIR = /home/bin
 win32: DESTDIR = D:/bin
@@ -29,13 +28,10 @@ QT       += core gui
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 TARGET = Irina-qt
 TEMPLATE = app
-SOURCES += \
-	irina-qt-executable.cpp \
+SOURCES += irina-qt-executable.cpp \
 	outputextensionselector.cpp \
 	irinaqterrorlog.cpp
-HEADERS += \
-	outputextensionselector.h \
+HEADERS += outputextensionselector.h \
 	irinaqterrorlog.h
-FORMS += \
-	outputextensionselector.ui \
+FORMS += outputextensionselector.ui \
 	irinaqterrorlog.ui
