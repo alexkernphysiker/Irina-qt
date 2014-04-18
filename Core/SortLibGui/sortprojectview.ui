@@ -1,0 +1,263 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>SortProjectView</class>
+ <widget class="QMainWindow" name="SortProjectView">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>800</width>
+    <height>600</height>
+   </rect>
+  </property>
+  <property name="minimumSize">
+   <size>
+    <width>800</width>
+    <height>600</height>
+   </size>
+  </property>
+  <property name="maximumSize">
+   <size>
+    <width>800</width>
+    <height>600</height>
+   </size>
+  </property>
+  <property name="windowTitle">
+   <string>MainWindow</string>
+  </property>
+  <widget class="QWidget" name="centralwidget">
+   <widget class="QLabel" name="statuslabel">
+    <property name="geometry">
+     <rect>
+      <x>0</x>
+      <y>560</y>
+      <width>801</width>
+      <height>20</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+   </widget>
+   <widget class="QLabel" name="pathlabel">
+    <property name="geometry">
+     <rect>
+      <x>0</x>
+      <y>0</y>
+      <width>641</width>
+      <height>21</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+   </widget>
+  </widget>
+  <widget class="QMenuBar" name="menubar">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>800</width>
+     <height>20</height>
+    </rect>
+   </property>
+   <widget class="QMenu" name="menuDataFiles">
+    <property name="title">
+     <string>DataFiles</string>
+    </property>
+   </widget>
+   <widget class="QMenu" name="menuProject">
+    <property name="title">
+     <string>Project</string>
+    </property>
+    <addaction name="actionRecalculate"/>
+    <addaction name="actionSave"/>
+   </widget>
+   <widget class="QMenu" name="menuND_filter">
+    <property name="title">
+     <string>Event Filters</string>
+    </property>
+    <addaction name="actionAdd"/>
+    <addaction name="actionWindow"/>
+    <addaction name="actionLocus"/>
+   </widget>
+   <widget class="QMenu" name="menuFormula_Templates">
+    <property name="title">
+     <string>Results</string>
+    </property>
+    <addaction name="actionX_Y_deltaY"/>
+    <addaction name="actionScatter_with_appendix"/>
+    <addaction name="actionOutput_settings"/>
+   </widget>
+   <widget class="QMenu" name="menuEdit">
+    <property name="title">
+     <string>Edit</string>
+    </property>
+    <addaction name="actionRemove_selected_element"/>
+   </widget>
+   <widget class="QMenu" name="menuHelp">
+    <property name="title">
+     <string>About</string>
+    </property>
+    <addaction name="actionDisplay_About_message"/>
+   </widget>
+   <widget class="QMenu" name="menuOther">
+    <property name="title">
+     <string>Other objects</string>
+    </property>
+   </widget>
+   <widget class="QMenu" name="menuEquations_and_magnitudes">
+    <property name="title">
+     <string>Functions</string>
+    </property>
+    <addaction name="actionAdd_spectrum_axis"/>
+    <addaction name="actionEnergy_calibration_at_SP2"/>
+    <addaction name="actionAdd_constant"/>
+    <addaction name="actionAdd_2"/>
+    <addaction name="actionAdd_DataFile_s_function"/>
+    <addaction name="separator"/>
+   </widget>
+   <addaction name="menuProject"/>
+   <addaction name="menuEdit"/>
+   <addaction name="menuDataFiles"/>
+   <addaction name="menuND_filter"/>
+   <addaction name="menuEquations_and_magnitudes"/>
+   <addaction name="menuOther"/>
+   <addaction name="menuFormula_Templates"/>
+   <addaction name="menuHelp"/>
+  </widget>
+  <action name="actionKINRD00V">
+   <property name="text">
+    <string>KINR D00V</string>
+   </property>
+  </action>
+  <action name="actionRemove_Element">
+   <property name="text">
+    <string>Remove Element</string>
+   </property>
+  </action>
+  <action name="actionRecalculate">
+   <property name="text">
+    <string>Read all datafiles</string>
+   </property>
+  </action>
+  <action name="actionSave">
+   <property name="text">
+    <string>Save project</string>
+   </property>
+  </action>
+  <action name="actionSimple_Event_Counter">
+   <property name="text">
+    <string>Simple Event Counter</string>
+   </property>
+  </action>
+  <action name="actionGlobal_variable">
+   <property name="text">
+    <string>Global variable</string>
+   </property>
+  </action>
+  <action name="actionSpectrum_Axis_Configuration">
+   <property name="text">
+    <string>Spectrum Axis Configuration</string>
+   </property>
+  </action>
+  <action name="actionEnergy_calibration">
+   <property name="text">
+    <string>Energy calibration</string>
+   </property>
+  </action>
+  <action name="actionDataFile_dependent_formula">
+   <property name="text">
+    <string>DataFile dependent formula</string>
+   </property>
+  </action>
+  <action name="actionAdd">
+   <property name="text">
+    <string>ND filter</string>
+   </property>
+  </action>
+  <action name="actionAdd_2">
+   <property name="text">
+    <string>Function</string>
+   </property>
+  </action>
+  <action name="actionAdd_constant">
+   <property name="text">
+    <string>Global variable</string>
+   </property>
+  </action>
+  <action name="actionAdd_spectrum_axis">
+   <property name="text">
+    <string>Spectrum axis</string>
+   </property>
+  </action>
+  <action name="actionRemove_selected_element">
+   <property name="text">
+    <string>Remove selected element</string>
+   </property>
+  </action>
+  <action name="actionClear_project">
+   <property name="text">
+    <string>Clear project</string>
+   </property>
+  </action>
+  <action name="actionWindow">
+   <property name="text">
+    <string>SP1 Window</string>
+   </property>
+  </action>
+  <action name="actionLocus">
+   <property name="text">
+    <string>SP2 Locus</string>
+   </property>
+  </action>
+  <action name="actionX_Y_deltaY">
+   <property name="text">
+    <string>Plot data</string>
+   </property>
+  </action>
+  <action name="actionAdd_DataFile_s_function">
+   <property name="text">
+    <string>Function on group</string>
+   </property>
+  </action>
+  <action name="actionScatter_with_appendix">
+   <property name="text">
+    <string>Extended Plot data</string>
+   </property>
+  </action>
+  <action name="actionAbout">
+   <property name="text">
+    <string>About</string>
+   </property>
+  </action>
+  <action name="actionBinary_Kinemathics_Formula">
+   <property name="text">
+    <string>Binary Kinemathics Formula</string>
+   </property>
+  </action>
+  <action name="actionEnergy_calibration_at_SP2">
+   <property name="text">
+    <string>Energy calibration at SP2 (axis)</string>
+   </property>
+  </action>
+  <action name="actionFrom_TXT_file">
+   <property name="text">
+    <string>From TXT file</string>
+   </property>
+  </action>
+  <action name="actionOutput_settings">
+   <property name="text">
+    <string>Data output settings</string>
+   </property>
+  </action>
+  <action name="actionDisplay_About_message">
+   <property name="text">
+    <string>Display 'About' message</string>
+   </property>
+  </action>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>

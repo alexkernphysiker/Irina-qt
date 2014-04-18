@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>LocView</class>
+ <widget class="QGroupBox" name="LocView">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>500</width>
+    <height>194</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>GroupBox</string>
+  </property>
+  <property name="title">
+   <string>Locus</string>
+  </property>
+  <widget class="QTreeWidget" name="AxTree">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>20</y>
+     <width>271</width>
+     <height>171</height>
+    </rect>
+   </property>
+   <column>
+    <property name="text">
+     <string>Available Axis</string>
+    </property>
+   </column>
+  </widget>
+  <widget class="QToolButton" name="xbut">
+   <property name="geometry">
+    <rect>
+     <x>280</x>
+     <y>65</y>
+     <width>23</width>
+     <height>22</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>x&gt;</string>
+   </property>
+  </widget>
+  <widget class="QToolButton" name="ybut">
+   <property name="geometry">
+    <rect>
+     <x>280</x>
+     <y>115</y>
+     <width>23</width>
+     <height>22</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>y&gt;</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="xlabel">
+   <property name="geometry">
+    <rect>
+     <x>310</x>
+     <y>65</y>
+     <width>191</width>
+     <height>21</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>TextLabel</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="ylabel">
+   <property name="geometry">
+    <rect>
+     <x>311</x>
+     <y>115</y>
+     <width>191</width>
+     <height>20</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>TextLabel</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label">
+   <property name="geometry">
+    <rect>
+     <x>280</x>
+     <y>30</y>
+     <width>161</width>
+     <height>21</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Select axis pair</string>
+   </property>
+  </widget>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>

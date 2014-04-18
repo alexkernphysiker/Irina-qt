@@ -1,0 +1,78 @@
+\documentclass[a4paper]{article}
+\usepackage [english]{babel}
+\usepackage{hyperref}
+%
+\topmargin -60pt \oddsidemargin -0.4mm \evensidemargin -5.4mm
+\setlength{\textheight}{257mm} \setlength{\textwidth}{165mm}
+\setlength{\marginparsep}{8mm} \setlength{\marginparwidth}{18mm}
+%
+\begin{document}
+\begin{center}{\textbf{\Large USER'S GUIDE FOR IRINA-QT (Monte Carlo modules)}}\end{center}
+%
+\begin{center}\textbf{INTRODUCTION}\end{center}
+{
+\textbf{Irina-qt is a program for the analysis of data obtained in multi-parametric experiments on nuclear physics.} 
+This is the description of the set of plugins providing algorithms needed for Monte Carlo simulations.
+}
+
+\begin{center}\textbf{\hypertarget{simulation}{Monte Carlo}}\end{center}
+{
+This is a plugin with objects used for modelling of experiments.
+\\
+Submenu \textbf{Simulation of datafile} in menu 'DataFiles' creates an object which does not take data events from any source but generates them itself the way defined by user.
+The tab 'Data simulation' which appears in this object's view form contains a text field where user must input names of {functions} which correspond to {'ADCs'} simulated by this object (one per line).
+\\
+Functions, which are needed will contain random magnitudes.
+Functions that provide differently distributed random values are implemented in this plugin.
+It's NOT recommended to use these functions in other cases except data simulation, because generally the result will be undefined.
+\\
+\textbf{'Random variable (uniform)'} generates values uniformly distributed from 0 to 1000. 
+Has no parameters except name, by which it can be accessed.
+\\
+\textbf{'Random variable (gauss)'} generates values distributed by gauss distribution. 
+Requires the average value and sigma (variance). 
+The third parameter 'Precision' corresponds to the quantity of uniformly distributed values which are added to get gauss distribution.
+If this number is great, the precision is high but calculation is slow.
+\\
+\textbf{'Random function selector'} is a function which returns a result selected from the list of functions. 
+The probabilities of this or that function selecting are also input by the user.
+\\
+\textbf{'Random variable with custom distribution'} is a function which returns values distributed by the custom distribution which is taken from a 'Table function' which is required.
+It is accessed by name.
+\\
+\textbf{Binary operator: summ} is user defined {binary operator} which returns the summ of several operators. 
+Is useful for modelling spectra with several processes observed.
+User is to input the names of operators summed one per line in the edit form.
+}
+\hypertarget{enloss}{\\}
+\begin{center}\textbf{Energy Loss}\end{center}
+{
+This plugin implements functions for charged particle energy loss calculation.\\
+\textbf{Charged particle energy loss} is an object derived from {function} which is used for calculating charged particle energy after running through a substance.
+When user creates this object, it requires {Table Function} with particle stopping power table for the substance.
+X value of this table function should be particle energy (MeV) and Y value should contain stopping power values ($MeV/(mg/cm^2)$) depending on it.\\
+Input parameters:\\
+\textit{Name} - the name by which this object can be accessed by other {functions},\\
+\textit{Initial energy} - the name of {function} which returns initial particle energy,\\
+\textit{Run} - particle's run through the substance.\\
+\textbf{Calculator of energy loss in the target} is an object, calculating particle final energy for experiments where a particle beam is interacting with rather thick target and one reaction product is registered by a detector.
+This object is also derived from {function} and is designed to use with {data simulation} extension.\\
+Input parameters:\\
+\textit{Name} - the name by which this object can be accessed by other {functions},\\
+\textit{E projectile} - beam energy,\\
+\textit{Theta detector} - angle between beam axis and detector layout (sign means direction) in degrees,\\
+\textit{Theta target} - angle between beam axis and target normal (sign means direction) in degrees,\\
+\textit{Target thickness} -  target thickness ($mg/cm^2$),\\
+\textit{Projectile stopping power} - the name of {table function} with dependence of projectile stopping power of target substance on the energy,\\
+\textit{Registered particle stopping power} - the same for registered particles,\\
+\textit{Triple differential cross section} - the name of {binary operator} returning 
+$d^3\sigma/(d\Omega_x dE_x)$ 
+which depends on $E_x$ (first parameter) and $E_p$ (second one). \textit{p} - projectile, \textit{x} - registered particle,\\
+\textit{$dE$} and {$E_{max}$} - parameters for obtaining initial energy of reaction product which will be registered,\\
+\textit{Precision} - describes energy loss calculating precision, means how many numerical integrating steps (particle energy) can be fitted in \textit{$dE$} interval.\\
+This calculation object randomly obtains the interaction place inside the target, which is thought to be uniformly distributed on the beam axis (target is thought to be thin enough for this), and calculates final energy of the projectile. 
+Then it randomly obtains reaction product energy using cross section tables (projectile energy and emission angle are known).
+After that product's run and final energy can be obtained.
+}
+\end{document}
+%

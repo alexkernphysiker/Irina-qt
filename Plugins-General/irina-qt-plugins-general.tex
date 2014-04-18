@@ -1,0 +1,82 @@
+\documentclass[a4paper]{article}
+\usepackage [english]{babel}
+\usepackage{hyperref}
+%
+\topmargin -60pt \oddsidemargin -0.4mm \evensidemargin -5.4mm
+\setlength{\textheight}{257mm} \setlength{\textwidth}{165mm}
+\setlength{\marginparsep}{8mm} \setlength{\marginparwidth}{18mm}
+%
+\begin{document}
+\begin{center}{\textbf{\Large USER'S GUIDE FOR IRINA-QT (base extensions)}}\end{center}
+%
+\begin{center}\textbf{INTRODUCTION}\end{center}
+{
+\textbf{Irina-qt is a program for the analysis of data obtained in multi-parametric experiments on nuclear physics.} 
+This is the description of the set of basic plugins for this program.
+}
+%
+\begin{center}\textbf{Gnuplot data output extension}\end{center}
+{
+This module provides export data into text files and plotting them via gnuplot.
+It requires \href{http://www.gnuplot.info/index.html}{gnuplot} installed in your system.
+This plotting extension can be configured after selecting menu $Results->Data$ $output$ $settings$.
+User can specify the path to the gnuplot binary and change some additional parameters.
+The most important options are ones that provide saving the plot into image files.
+\\
+When user exports some spectrum or calculation results set, he must give name to the plotted object.
+Two or more objects with the same name cannot be export to text files and plot correctly at the same time.
+If there must be two plot lines with the same displayed name, please use $\#$ symbol to create comments which are ignored.
+If object name contains $\{line\}$ expression, it is not displayed but gnuplot plots line (otherwise points are plotted).
+}
+\begin{center}\textbf{Group of datafiles}\end{center}
+{
+This plugin implements an object that allows to analyse several datafiles as one abstract data source.
+It should be added to the project as a single datafile and all datafiles which would be analysed as a group are added into it directly ("Group of DataFiles" tab).
+\\
+When the analysis runs all these files are read one after another but the events stored there pass through the group object and are analysed like ones produced by a single source.
+\\
+All variables that are read from datafiles are added to the Group.
+If there's name collision the result value can be either a sum or an average value (it's configured).
+}
+%
+\hypertarget{extmasks}{\\}
+\begin{center}\textbf{Extended event filter}\end{center}
+{
+\textbf{Predicate} - is a filter based on conditions '$=$', '$>$', '$<$', '$>=$' or '$<=$'. 
+It requires the names of two functions depending on data event and symbol(s) of predicate that describes the condition.
+}
+\hypertarget{fbkin}{
+\begin{center}\textbf{Binary kinematics}\end{center}
+}
+{
+This extension provides object derivative from Function which implements relativistic \textbf{ binary kinematic} formula.
+User can use this object for calculating angle of divergence or energy of collision in center of mass system.
+Calculating product energy in laboratory system and Jacobian of transformation into center of mass system is also available.
+\\ 
+All these functions require the same arguments, so are implemented in one type of object.
+User has to select the type of returned value.
+All arguments are thought to be variables or functions defined in the project.
+User cannot write numeric values of any arguments directly in Binary Kinematics form, only variable/function names are acceptable.
+If an argument field is empty or contains undeclared variable name it is thought to be equal to zero.
+Binary Kinematics object should be named by user for being used as function by other objects of the project.
+\\
+This module provides also \textbf{Rutherford} formula calculation. 
+This is an object derived from Function.
+User must input function or variable names for the parameters needed.
+All these parameters and their units are signed.
+\\
+\textbf{Spectrum line} is a binary operator($E_{product}$ MeV, $E_{projectile}$ MeV).
+It requires almost the same parameter as binary kinematic formula except projectile energy, which is the second parameter of this operator.
+The dependence on the first argument, which is the projectile energy, is the gaussian peak with maximum position calculated using kinematics formula.
+Also user should input names of variables or functions which contain the sigma value and total peak amount.
+}
+%
+\hypertarget{errorcalc}{\\}
+\begin{center}\textbf{Error calculation}\end{center}
+{
+{'Error calculation'} is an object derivative from Function which is used for calculation of experimental errors. 
+It should be named by user for being used like other functions are. 
+It also requires the name of function, which is obtained with error which needs to be calculated, and list of variables which this function depends on and their known errors. 
+Zero error value input by user makes Irina-qt to calculate it automatically: firstly it looks for variable {'\textit{$<$name$>$ ERROR}'} ('\textit{$<$name$>$}' is the name of variable, the siffix begins from underline) where the error value is stored, or takes a square root if such variable is not defined.
+}
+\end{document}

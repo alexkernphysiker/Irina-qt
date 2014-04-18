@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>ECalView</class>
+ <widget class="QGroupBox" name="ECalView">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>500</width>
+    <height>300</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>GroupBox</string>
+  </property>
+  <property name="title">
+   <string>Energy calibration by deltaE-E spectrum</string>
+  </property>
+  <widget class="QTreeWidget" name="axtree">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>20</y>
+     <width>241</width>
+     <height>192</height>
+    </rect>
+   </property>
+   <column>
+    <property name="text">
+     <string>Axis</string>
+    </property>
+   </column>
+  </widget>
+  <widget class="QToolButton" name="xbut">
+   <property name="geometry">
+    <rect>
+     <x>242</x>
+     <y>48</y>
+     <width>23</width>
+     <height>22</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>x&gt;</string>
+   </property>
+  </widget>
+  <widget class="QToolButton" name="ybut">
+   <property name="geometry">
+    <rect>
+     <x>242</x>
+     <y>72</y>
+     <width>23</width>
+     <height>22</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>y&gt;</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="xlabel">
+   <property name="geometry">
+    <rect>
+     <x>280</x>
+     <y>50</y>
+     <width>141</width>
+     <height>16</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+  </widget>
+  <widget class="QLabel" name="ylabel">
+   <property name="geometry">
+    <rect>
+     <x>280</x>
+     <y>70</y>
+     <width>141</width>
+     <height>21</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+  </widget>
+  <widget class="QTreeWidget" name="treeWidget">
+   <property name="geometry">
+    <rect>
+     <x>243</x>
+     <y>100</y>
+     <width>251</width>
+     <height>192</height>
+    </rect>
+   </property>
+   <column>
+    <property name="text">
+     <string>Spectra(doubleclick to open)</string>
+    </property>
+   </column>
+  </widget>
+  <widget class="QLabel" name="label">
+   <property name="geometry">
+    <rect>
+     <x>240</x>
+     <y>30</y>
+     <width>191</width>
+     <height>20</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Select axis pair to calibrate on</string>
+   </property>
+  </widget>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>

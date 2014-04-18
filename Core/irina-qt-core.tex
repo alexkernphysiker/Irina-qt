@@ -1,0 +1,218 @@
+\documentclass[a4paper]{article}
+\usepackage [english]{babel}
+\usepackage{hyperref}
+%
+\topmargin -60pt \oddsidemargin -0.4mm \evensidemargin -5.4mm
+\setlength{\textheight}{257mm} \setlength{\textwidth}{165mm}
+\setlength{\marginparsep}{8mm} \setlength{\marginparwidth}{18mm}
+%
+\begin{document}
+\begin{center}{\textbf{\Large USER'S GUIDE FOR IRINA-QT (core)}}\end{center}
+%
+\hypertarget{intro}{}
+{\begin{center}\textbf{INTRODUCTION}\end{center}}
+{
+\textbf{Irina-qt is a program for the analysis of data obtained in multi-parametric nuclear experiments.} 
+It requires data stored in data files (one can write plugins for custom data formats support) and provides various functions for it's analysis, such as building one and two dimensional spectra, select areas on them (loci and windows) for further calculations, obtaining the number of events which match user-defined criteria, providing calculations of the final result by predefined formulas.
+\hypertarget{contacts}{\\}
+This is an open source project using Qt framework and can be compiled for running either in Linux or in Windows.
+\hypertarget{contacts}{\\}
+If you want to add some functions to this program or fix some bug, you can 
+\href{mailto:alex_kernphysiker@privatdemail.net}{contact} 
+the author and participate the project
+\href{https://github.com/alexrndl/Irina-qt}{(github link)}.
+}
+%
+\hypertarget{project}{\\}
+\begin{center}\textbf{PROJECT}\end{center}
+{
+Data analysis begins from creating project. When the program is starting, it displays directory choosing dialog window. 
+This directory should contain all files needed for analysis and the project file. 
+If the last one does not exist, it's automatically created. After creating or opening the project you can add into it the objects, which correspond to pieces of data or algorithms of analysis. 
+These objects are displayed on the left part of main window in the project tree view. 
+The right part of the main window is used for displaying/editing information about selected object.\\
+Menus 'Project' and 'Edit' contain basic functions for editing the project.
+}
+%
+\hypertarget{datafile}{\\}
+\begin{center}\textbf{DATA FILES}\end{center}
+{
+Each data file contains data about events registered in the experiment, which have fixed set of parameters. 
+These parameters are thought to contain data from ADC's connected to detectors or other equipment, though user may analyse data of his own format. 
+Data from data event can be accessed via \hyperlink{variable}{variables}.
+Each data event contains such variables: \textit{$\#$0}, \textit{$\#$1},... - the parameters which contain data from ADC's; \textit{$\#$nd} - parameter which is used for identifying the equipment subsystem which the event belongs to (it's optional and depends on current data format implementation). 
+\\
+Different file formats are available in the menu 'DataFiles'. 
+\\
+Base functions available for data files are creating event \hyperlink{counters}{counter objects} (simple event counter, one and two dimensional spectra), re-reading data (parses data about all events and makes event counters to analyse them) and editing user created \hyperlink{variable}{variables} attached to the datafile which are used for further analysis.
+\\
+The 'description' tab is used for displaying optional data taken from the file. 
+There can be variables with values taken from the datafile header (depends on current format implementation). 'Variables' tab is used for creating and editing other variables for this data. Some of them are created automatically by event counters, which have non-empty values in the 'Name' field.
+\\
+Users with programming skills can \hyperlink{devtool}{implement} their own data format reading extension.
+}
+%
+\hypertarget{functions}{\\}
+\begin{center}\textbf{VARIABLES, FUNCTIONS, SPECTRA AXES}\end{center}
+{
+Menu 'Functions' is used to create spectra axes, global variables and different functions.
+\hypertarget{variable}{\\}
+\textbf{'Global variable'} is a simple named value, which can be accessed from other parts of project by name.
+Variables can be either global or attached to \hyperlink{datafile}{datafile} or \hyperlink{datafile}{data event}.
+\hypertarget{function}{\\}
+\textbf{'Function'} is a named expression, which is calculated according to expression tree built by user.
+The expression tree may contain unary and binary operators, identifiers (name of a variable or other function) and numeric values.
+Parsing the expression tree from a string expression is implemented, but it cannot make decision about the precedence of operators (there must be brackets everywhere) and operands must be separated from operators with spaces obligatory.
+The identifiers either variables or operators are not allowed to contain spaces.
+\\
+Binary operator is identified by it's name.
+Here is the list of built-in operators: 
+%BINARY OPERATOR LIST
+\textit{+} or \textit{add}, 
+\textit{-} or \textit{sub}, 
+\textit{*} or \textit{mul}, 
+\textit{/} or \textit{div},
+\textit{pow}
+.
+User can also \hyperlink{userbinary}{define} his own operators. 
+%
+Unary operator is identified by name too.
+Built-in operators are: 
+%BINARY OPERATOR LIST
+\textit{-} or \textit{minus}, 
+\textit{sign}, 
+\textit{sqrt}, 
+\textit{sqr}, 
+\textit{exp}, 
+\textit{ln}, 
+\textit{sin}, 
+\textit{cos}, 
+\textit{sind} (usual sinus, but requires angle in degrees), 
+\textit{cosd} (differs from usual cosinus the same way). 
+Custom unary operators can also be \hyperlink{userbinary}{defined}. 
+%
+\hypertarget{axis}{\\}
+\textbf{'Spectrum axis'} is a \hyperlink{function}{function} used for building spectra. 
+For configuring it user should create the \hyperlink{function}{expression tree} due to the formula for calculating displayed magnitude using \hyperlink{datafile}{data event} variables.
+The axis also has three additional parameters: minimum and maximum values and channel width. 
+They can be edited after user presses 'Spectrum axis' button on the form that is displayed when the axis is selected in the project tree-view.
+\hypertarget{functiondf}{\\}
+\textbf{'Function on group'} is a function calculated for user-defined group of data files.
+It's called so because the returned value does not depend on datafile or data event, it always returns the same value.
+User types the name of \hyperlink{function}{datafile-dependent function}, selects type of the function returned (sum, average or variance) and defines the set of data files which it is calculated for. 
+\\
+All other submenus, that can be found in 'Functions' menu are used to create objects derivative from described above and are provided by extensions currently loaded. Users can \hyperlink{devtool}{implement} their own plugins with functions.
+}
+%
+\hypertarget{counters}{\\}
+\begin{center}\textbf{EVENT COUNTERS, SPECTRA}\end{center}
+{
+When user selects a datafile in project tree view three buttons for adding event counters are displayed in the datafile view form that appears on the right side of main window. 
+They can be used to create objects for analysis of data events in this file. 
+Giving names to event counters makes the program to automatically create \hyperlink{variable}{variables} attached to datafile object, where the results of analysis are written. 
+If '\textit{name}' is the name of event counter, then two variables are created: '\textit{$\$$name}' for events count and '\textit{$\$$name ERROR}' for statistical error.
+\hypertarget{eventcnt}{\\}
+\textbf{'Event counter'} is a simple object which is used to obtain the quantity of \hyperlink{datafile}{events} which meet the terms determined by the set of selected \hyperlink{filters}{event filters}.
+\hypertarget{sp2}{\\}
+\textbf{'SP2'} is a two-dimensional spectrum, which is used for observing correlations between two measured magnitudes. 
+Creating an SP2 requires two configured \hyperlink{axis}{axes} which are set for X and Y direction and \hyperlink{filters}{event filters} which describe the set of analysed events (filters are optional). 
+Spectrum can be viewed in separate window ("View loci" button). \hyperlink{loc}{Locus} (or several loci) can be created and edited. 
+The description of all hot-keys that can be used for working with SP2 is displayed at the top left corner of this window. 
+The data of two-dimensional spectrum can be exported with the data output extension currently used in Irina-qt.
+\hypertarget{sp1}{\\}
+\textbf{'SP1'} is an one-dimensional spectrum. 
+For creating it user must select configured \hyperlink{axis}{axis} and \hyperlink{filters}{event filters} he wants to use.
+The data of spectrum can be exported with data output extension.
+Pressing the button "Peaks and WIN" opens the window, which allows to edit event filters based on this spectrum (\hyperlink{win}{Windows}) and peaks.
+\\
+\textbf{Peaks} are event counters too, but they differ from other ones such way, that they are attached to SP1s which they belong too. Their event counting algorithm provides simple subtracting of background.
+When peak's amount is calculated, the background is determined by the counts in left-end and right-end channels which are marked to belong it.
+}
+%
+\hypertarget{filters}{\\}
+\begin{center}\textbf{EVENT FILTERS}\end{center}
+{
+Event filters are used for determining the terms for \hyperlink{datafile}{events}, that should be taken by \hyperlink{counters}{event counters}.
+Actually there are three types of event filters: ND filter, locus and window. 
+Each one can be created once but used as many times as needed.
+Filters are not connected to any data file.
+\hypertarget{ndfilter}{\\}
+\textbf{ND filter} can  be used when the data files format is implemented such way, that each \hyperlink{datafile}{event has it's ND value}, that corresponds to a detector which registered this event. 
+So ND filter has two fields: Name (optional) and the value of ND code which passes through this filter.
+\hypertarget{loc}{\\}
+\textbf{SP2 Locus} is used to select such data events, which are displayed in defined area of \hyperlink{sp2}{two-dimensional spectrum}. 
+Loci aren't connected with spectra, but require only preconfigured \hyperlink{axis}{axes} for X and Y direction. 
+But for creating a locus user should create at least one SP2 that uses the same axes.
+Loci can be created or edited when \hyperlink{sp2}{'View loci'} window is opened.
+In that case user can operate with loci, that use the same axis pair as the spectrum opened.
+The locus should be selected in the list of loci, and then user can point a convex polygon which is to be included or excluded. 
+Ratio buttons below the list of loci can switch between the modes of including or excluding the selected area.
+\hypertarget{win}{\\}
+\textbf{SP1 Window} is used to select data events, which appear in defined area of \hyperlink{sp1}{one-dimensional spectrum}. 
+When window is created, it's connected to a spectrum \hyperlink{axis}{axis}, and can be used with all 1-d spectra that use it.
+When a spectrum view window is opened, a window can be selected in the list of available windows, and edited. 
+Please use 'left' and 'right' keys to move marker by the spectrum and 'Ins', 'Del' and 'Home' keys to switch between adding, removing points and marker moving modes.
+\\
+Other types of filters can be \hyperlink{devtool}{provided} by extensions.
+}
+%
+\hypertarget{userbinary}{\\}
+\begin{center}\textbf{USER DEFINED UNARY AND BINARY OPERATORS}\end{center}
+{
+User defined operators are the objects, which can be used as \hyperlink{function}{unary and binary operators}. 
+There's only one built-in binary operator object, though other ones \hyperlink{devtool}{can be implemented} in plugins.
+\\
+\textbf{Interpolation between several unaries} is user defined binary operator which requires list of {unary operators} and values of the second argument. Binary operator values are calculated using linear interpolation.
+It's planed to use a better algorithm in future.\textit{If you wish to participate please \hyperlink{contacts}{e-mail}}.
+}
+\hypertarget{tablefunc}{\\}
+\begin{center}\textbf{TABLE FUNCTIONS}\end{center}
+{
+Table functions are objects derived from \hyperlink{userbinary}{Unary operator}. 
+They are used to store table of values in a format easy to export with data output extension. 
+X-value is considered to be operand and the operator returns respective Y-value.
+For fractional X-values interpolation is used.
+\\
+Built-in table functions are described here, other ones \hyperlink{devtool}{can be provided} in plugins.
+\hypertarget{tablefunctxt}{\\}
+\textbf{Table function from text file} is a table function, which is loaded from a text file.
+\hypertarget{sp1norm}{\\}
+\textbf{Normalized SP1} is a table function attached to an \hyperlink{sp1}{SP1}.
+Requires the identifier of normalizing coefficient (must be the name of either a \hyperlink{variable}{variable} or \hyperlink{function}{function}). 
+Counts in spectrum are multiplied by this coefficient and stored in the values table.
+\\
+Advanced users can \hyperlink{devtool}{develop} their own Table functions which would be filled for example with calculated values or from custom data source.
+}
+%
+\hypertarget{scatter}{\\}
+\begin{center}\textbf{{CALCULATION RESULTS}}\end{center}
+{
+\textbf{'Plot data'} is an object which is used to export the data on dependence of one \hyperlink{function}{Function} on another with data output extension currently used in Irina-qt.
+It requires identifiers of functions for X-value, Y-value and Y-error. 
+User also must select \hyperlink{datafile}{datafiles} for which these functions values should be calculated.
+The name given to this object is also processed when the data is exported. 
+\hypertarget{scattertagged}{\\}
+\textbf{'Extended plot data'} is a derivative object and differs from simple 'Plot data' only with possibility of attaching another 'Plot data' (maybe extended too).
+}
+\hypertarget{dataexport}{\\}
+\begin{center}\textbf{DATA OUTPUT EXTENSIONS}\end{center}
+{
+Data export is done by data output extension (plugin) used in current Irina-qt version.
+One can develop his own data output extension and replace default one with it.
+If there are several data output extensions available, Irina-qt displays selecting dialog every time it's launched.
+\\
+Currently used data output extension can be configured after selecting menu $Results->Data$ $output$ $settings$.
+If you are developing you own data output extension you can use the \hyperlink{devtool}{Developers Tool}.
+}
+\hypertarget{devtool}{\\}
+\begin{center}\textbf{DEVELOPERS TOOL}\end{center}
+{
+This is another executable distributed together with Irina-qt.
+It generates the template source project of Irina-qt extension (plugin).
+When the application is launched user should select the checkbox with plugin type needed.
+Then he can input the plugin's name and a path where the generated source will be placed.
+For compiling this source user must have Qt Creator and Qt SDK installed.
+This software can be downloaded \href{http://qt-project.org/downloads}{here}.
+Currently Qt 4.8.4 is used in this project.
+}
+\end{document}
