@@ -1,6 +1,7 @@
 #ifndef SIMULATION_H
 #define SIMULATION_H
 #include <QtCore/qglobal.h>
+#include <functions/functions.h>
 #include <SortLib.h>
 #include <SortLibGui.h>
 #if defined(SIMULATION_LIBRARY)

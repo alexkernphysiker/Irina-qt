@@ -161,7 +161,7 @@ QString RandomMagnitude::DisplayName(){
 double RandomMagnitude::Value(SoDFReader */*fr*/, DataEvent *event){
 	if(last!=event){
 		last=event;
-		lastval=(double(qrand()) / double(RAND_MAX))*double(maxval);
+		lastval=Math_::RandomUniformly(0,1);
 	}
 	return lastval;
 }
@@ -328,7 +328,6 @@ DistributedByFunction::DistributedByFunction(SoTblFunc *func):RandomMagnitude(fu
 	getdata();
 	connect(m_func,SIGNAL(deleting()),this, SLOT(remove()));
 	connect(m_func,SIGNAL(changed(SObject*)),this,SLOT(getdata()));
-	//connect(this,SIGNAL(changed(SObject*)),this,SLOT(getdata()));
 }
 DistributedByFunction::DistributedByFunction(QDataStream &str, SortProject *father):RandomMagnitude(str,father){
 	AddType(4);m_func=NULL;m_distr=NULL;maxval=1;
@@ -345,7 +344,6 @@ DistributedByFunction::DistributedByFunction(QDataStream &str, SortProject *fath
 	getdata();
 	connect(m_func,SIGNAL(deleting()),this, SLOT(remove()));
 	connect(m_func,SIGNAL(changed(SObject*)),this,SLOT(getdata()));
-	//connect(this,SIGNAL(changed(SObject*)),this,SLOT(getdata()));
 }
 void DistributedByFunction::Save(QDataStream &str){
 	if(m_func==NULL)return;
