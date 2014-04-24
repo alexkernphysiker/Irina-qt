@@ -1,0 +1,17 @@
+Building all qt projects in this repository requires file qt_build_path.pri. 
+It should be created in upper directory.
+Here is an example of it's possible content:
+#BEGIN qt_build_path.pri
+#build location
+DESTDIR = <your build path>
+win32: DLLDESTDIR = $$DESTDIR
+DEPENDPATH += $$DESTDIR
+#configuration
+win32: DEFINES += WINBUILD
+unix:{
+  QMAKE_LFLAGS += -Wl,--rpath=$$DESTDIR
+  QMAKE_LFLAGS_RPATH=
+}
+#END qt_build_path.pri
+It can be use also for building other repositories from by Github account.
+For this could be possible, call "git clone" command for all repositories at the same directory and put the file qt_build_path.pri in it.
