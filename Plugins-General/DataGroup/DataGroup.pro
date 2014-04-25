@@ -10,10 +10,6 @@ QT       += core gui
 CONFIG += plugin
 TEMPLATE = lib
 TARGET   = $$qtLibraryTarget(format_datagroup)
-SOURCES += datagroup.cpp \
-	register_datagroup.cpp \
-	datagroupview.cpp
-HEADERS += datagroup.h \
-	register_datagroup.h \
-	datagroupview.h
+SOURCES += datagroup.cpp register_datagroup.cpp datagroupview.cpp
+HEADERS += datagroup.h register_datagroup.h datagroupview.h
 FORMS += datagroupview.ui

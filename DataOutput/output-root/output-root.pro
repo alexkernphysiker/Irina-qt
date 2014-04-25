@@ -19,8 +19,5 @@ QT += core gui
 TEMPLATE = lib
 CONFIG += plugin
 TARGET   = $$qtLibraryTarget(output-root)
-INCLUDEPATH += ../../DataSorting/Irina-qt-headers
-SOURCES += register-root-output.cpp \
-	outputroot.cpp
-HEADERS += register-root-output.h \
-	outputroot.h
+SOURCES += register-root-output.cpp outputroot.cpp
+HEADERS += register-root-output.h outputroot.h

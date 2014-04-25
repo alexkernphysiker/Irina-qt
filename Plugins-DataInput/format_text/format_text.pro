@@ -9,7 +9,5 @@ QT       += core gui
 CONFIG += plugin
 TEMPLATE = lib
 TARGET   = $$qtLibraryTarget(format_txt)
-SOURCES += textfile.cpp \
-	register_textfilelib.cpp
-HEADERS += textfile.h \
-	register_textfilelib.h
+SOURCES += textfile.cpp register_textfilelib.cpp
+HEADERS += textfile.h register_textfilelib.h

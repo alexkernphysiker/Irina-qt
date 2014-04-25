@@ -9,10 +9,6 @@ LIBS += -L$$DESTDIR -lSortLibGui
 CONFIG += plugin
 TEMPLATE = lib
 TARGET   = $$qtLibraryTarget(errcalc)
-SOURCES += numericerrorscalculation.cpp \
-	thiswidget.cpp \
-	register_errcalc.cpp
-HEADERS += numericerrorscalculation.h \
-	thiswidget.h \
-	register_errcalc.h
+SOURCES += numericerrorscalculation.cpp thiswidget.cpp register_errcalc.cpp
+HEADERS += numericerrorscalculation.h thiswidget.h register_errcalc.h
 FORMS += thiswidget.ui

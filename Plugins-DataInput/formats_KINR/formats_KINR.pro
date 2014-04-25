@@ -9,7 +9,5 @@ QT       += core gui
 CONFIG += plugin
 TEMPLATE = lib
 TARGET   = $$qtLibraryTarget(formats_kinr)
-SOURCES += KINR.cpp \
-	register_kinr.cpp
-HEADERS += KINR.h \
-	register_kinr.h
+SOURCES += KINR.cpp register_kinr.cpp
+HEADERS += KINR.h register_kinr.h

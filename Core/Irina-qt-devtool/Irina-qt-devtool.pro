@@ -14,7 +14,6 @@ QT       += core gui
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 TARGET = Irina-qt-devtool
 TEMPLATE = app
-SOURCES +=	masterwindow.cpp \
-	main-createproject.cpp
+SOURCES += masterwindow.cpp main-createproject.cpp
 HEADERS  += masterwindow.h
 FORMS    += masterwindow.ui
