@@ -1,8 +1,6 @@
-#author: alex_kernphysiker@privatdemail.net
 include("../../../qt_build_path.pri")
+include("../../qt_inc_paths.pri")
 #Irina-qt
-INCLUDEPATH += ../../Core/Irina-qt-headers
-INCLUDEPATH += ../..
 LIBS += -L$$DESTDIR -lSortLib
 LIBS += -L$$DESTDIR -lSortLibGui
 LIBS += -L$$DESTDIR -lmontecarlo

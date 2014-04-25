@@ -1,9 +1,6 @@
-#author: alex_kernphysiker@privatdemail.net
 include("../../../qt_build_path.pri")
-#Irina-qt
-INCLUDEPATH += ../Irina-qt-headers
-#https://github.com/alexkernphysiker/MathLibs
-INCLUDEPATH += ../../../MathLibs
+include("../../qt_inc_paths.pri")
+#MathLibs
 LIBS += -L$$DEPENDPATH -lmath_func
 LIBS += -L$$DEPENDPATH -lmath_expression
 #project configuration

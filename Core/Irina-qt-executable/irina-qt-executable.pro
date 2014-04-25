@@ -1,12 +1,9 @@
-#author: alex_kernphysiker@privatdemail.net
+include("../../qt_inc_paths.pri")
 include("../../../qt_build_path.pri")
 #Irina-qt
-INCLUDEPATH += ../Irina-qt-headers
-INCLUDEPATH += ../..
 LIBS += -L$$DESTDIR -lSortLib
 LIBS += -L$$DESTDIR -lSortLibGui
-#https://github.com/alexkernphysiker/MathLibs
-INCLUDEPATH += ../../../MathLibs
+#MathLibs
 LIBS += -L$$DEPENDPATH -lmath_func
 #project configuration
 QT       += core gui

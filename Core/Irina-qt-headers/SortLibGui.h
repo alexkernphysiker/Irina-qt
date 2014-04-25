@@ -7,11 +7,11 @@
 #else
 #  define SORTLIBGUISHARED_EXPORT Q_DECL_IMPORT
 #endif
-#include <SortLib.h>
 #include <QMainWindow>
 #include <QGroupBox>
 #include <QTreeWidget>
 #include <QTreeWidgetItem>
+#include "SortLib.h"
 
 //these classes are implemented in this library but are not exported
 namespace Ui {

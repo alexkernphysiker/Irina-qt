@@ -2,7 +2,6 @@
 #include <expression/expression.h>
 
 
-
 /////////// global variable
 SoValue::SoValue(SortProject *father):SObject(father){
 	AddType(SOT_Value);m_value=0;
