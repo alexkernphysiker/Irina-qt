@@ -7,11 +7,13 @@ DESTDIR = <your build path>
 win32: DLLDESTDIR = $$DESTDIR
 DEPENDPATH += $$DESTDIR
 #configuration
-win32: DEFINES += WINBUILD
+QMAKE_CXXFLAGS+=-std=c++11   #if c++11 is available
+DEFINES += override=         #otherwise
 unix:{
   QMAKE_LFLAGS += -Wl,--rpath=$$DESTDIR
   QMAKE_LFLAGS_RPATH=
 }
+win32: DEFINES += WINBUILD
 #END qt_build_path.pri
 It can be use also for building other repositories from by Github account.
 For this could be possible, call "git clone" command for all repositories at the same directory and put the file qt_build_path.pri in it.
