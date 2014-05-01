@@ -87,20 +87,23 @@ void GenProjectFile(QString projName, QString targetname, QDir projDir, QList<Tr
 				AddLine("QMAKE_LFLAGS += -Wl,--rpath=$$PWD/$$DESTDIR")->
 				AddLine("QMAKE_LFLAGS_RPATH=")
 				)->
-			AddLine("win32: DEFINES += WINBUILD")->
+			AddLine("#Path to the headers (in linux can differ)")->
+			AddLine("INCLUDEPATH +=$$DESTDIR/include/Irina-qt")->
+			AddLine("INCLUDEPATH +=$$DESTDIR/include/MathLibs")->
+			AddLine("#Standard C++11 if supported")->
+			AddLine("QMAKE_CXXFLAGS+=-std=c++11")->
+			AddLine("#Standard C++11 if not supported")->
+			AddLine("#DEFINES += override=")->
+			AddLine("#Configure project")->
 			AddLine("QT+= core gui")->
 			AddLine("CONFIG += plugin")->
 			AddLine("TEMPLATE = lib")->
 			AddLine(QString("TARGET   = $$qtLibraryTarget(")+targetname+")")->
-			AddLine("#Path to the headers (in linux can differ)")->
-			AddLine("INCLUDEPATH +=$$DESTDIR/include")->
-			AddLine("INCLUDEPATH +=$$DESTDIR/include/Irina-qt")->
-			AddLine("")->
 			AddLine("SOURCES += \\");
 	for(int i=0; i<contains.count();++i){
 		projectfile.AddLine(contains.at(i)->SourceName()+" \\");
 	}
-	projectfile.AddLine(" ");
+    projectfile.AddLine(" ");
 	projectfile.AddLine("HEADERS += \\");
 	for(int i=0; i<contains.count();++i){
 		projectfile.AddLine(contains.at(i)->HeaderName()+" \\");
