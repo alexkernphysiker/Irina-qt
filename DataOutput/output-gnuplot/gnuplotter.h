@@ -11,13 +11,13 @@ public:
 	Gnuplotter();
 	virtual ~Gnuplotter();
 public slots:
-	virtual void sl_out_1d(QString);// signals about starting of 1-d distribution plotting
-	virtual void sl_out_2d(QString);// signals about starting of 2-d distribution plotting
-	virtual void sl_out_dataitem(DataEvent*);// transfering a piece of data for plotting
-	virtual void sl_out_end();// data terminating signal
-	virtual void sl_out_config();// open data output configuration dialog signal
-	virtual void sl_out_gui_close();// close all open data output windows
-	virtual QString About();
+	virtual void sl_out_1d(QString)override;// signals about starting of 1-d distribution plotting
+	virtual void sl_out_2d(QString)override;// signals about starting of 2-d distribution plotting
+	virtual void sl_out_dataitem(DataEvent*)override;// transfering a piece of data for plotting
+	virtual void sl_out_end()override;// data terminating signal
+	virtual void sl_out_config()override;// open data output configuration dialog signal
+	virtual void sl_out_gui_close()override;// close all open data output windows
+	virtual QString About()override;
 private slots:
 	void processerror(QProcess::ProcessError error);
 	void Closing(bool toplot, PlotParameters* params);

@@ -10,9 +10,9 @@ class NumericErrorsCalculation : public SoFormula {
 public:
 	NumericErrorsCalculation(SortProject *proj);
 	NumericErrorsCalculation(QDataStream &str, SortProject *proj);
-	virtual void Save(QDataStream &str);
+	virtual void Save(QDataStream &str)override;
 	virtual ~NumericErrorsCalculation();
-	virtual QString DisplayName();
+	virtual QString DisplayName()override;
 	QString FuncName();
 	void SetFuncName(QString nme);
 	int Count();
@@ -22,8 +22,8 @@ public:
 	double ErrValue(QString name);
 	void RemoveErr(int N);
 	void SetError(QString name, double val);
-	virtual double Value(SoDFReader *fr, DataEvent *event);
-	virtual void *GetForm();
+	virtual double Value(SoDFReader *fr, DataEvent *event)override;
+	virtual void *GetForm()override;
 private slots:
 	void varvalueintersector(QString name, double *val, SoDFReader *dr,DataEvent*);
 private:

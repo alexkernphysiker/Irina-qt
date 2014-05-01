@@ -5,7 +5,7 @@ class KINRLoader: public QObject, public LoaderInterface{
 	Q_OBJECT
 	Q_INTERFACES(LoaderInterface)
 public:
-	virtual bool Register();
-	virtual bool Unregister();
+	virtual bool Register()override;
+	virtual bool Unregister()override;
 };
 #endif // REGISTER_KINR_H

@@ -12,12 +12,12 @@ class EnLos:public SoFormula{
 public:
 	EnLos(SoTblFunc *stoppingpower);
 	EnLos(QDataStream &str,SortProject *proj);
-	virtual void Save(QDataStream &str);
+	virtual void Save(QDataStream &str)override;
 	virtual ~EnLos();
-	virtual QString DisplayName();
-	virtual double Value(SoDFReader *fr, DataEvent *event);
-	virtual void* GetForm();
-	virtual SObject *DisplParrent();
+	virtual QString DisplayName()override;
+	virtual double Value(SoDFReader *fr, DataEvent *event)override;
+	virtual void* GetForm()override;
+	virtual SObject *DisplParrent()override;
 	QString Energy();
 	void SetEnergy(QString energy);
 	QString Length();
@@ -37,11 +37,11 @@ class EnLossInTarget:public SoFormula{
 public:
 	EnLossInTarget(SortProject *proj);
 	EnLossInTarget(QDataStream &str,SortProject *proj);
-	virtual void Save(QDataStream &str);
+	virtual void Save(QDataStream &str)override;
 	virtual ~EnLossInTarget();
-	virtual QString DisplayName();
-	virtual double Value(SoDFReader *fr, DataEvent *event);
-	virtual void* GetForm();
+	virtual QString DisplayName()override;
+	virtual double Value(SoDFReader *fr, DataEvent *event)override;
+	virtual void* GetForm()override;
 	QString Energy();
 	void SetEnergy(QString energy);
 	QString ThetaDetector();

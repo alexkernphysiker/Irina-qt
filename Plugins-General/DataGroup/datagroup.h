@@ -13,10 +13,10 @@ public:
 		DataGroup(SortProject *father);
 		DataGroup(QDataStream &str,SortProject *father);
 		virtual ~DataGroup();
-		virtual void Save(QDataStream &str);
-		virtual QString DisplayName();
-		virtual DataEvent *NextEvent(QDataStream &datastr);
-		virtual void *GetForm();
+		virtual void Save(QDataStream &str)override;
+		virtual QString DisplayName()override;
+		virtual DataEvent *NextEvent(QDataStream &datastr)override;
+		virtual void *GetForm()override;
 		int GetDFReaderCount();
 		SObject* GetDFReader(int index);
 		void RemDFReader(int index);
@@ -24,7 +24,7 @@ public:
 		DataGroupType GetType();
 		void SetType(DataGroupType type);
 public slots:
-		virtual void Read();
+		virtual void Read()override;
 private slots:
 		void AfterRead();
 		void CallDataEventGot(DataEvent *);

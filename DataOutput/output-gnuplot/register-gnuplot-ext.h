@@ -5,6 +5,6 @@ class GnuplotExtLoader: public QObject, public OutputPluginLoaderInterface{
 	Q_OBJECT
 	Q_INTERFACES(OutputPluginLoaderInterface)
 public:
-virtual IDataOutput* DataOutput();
+virtual IDataOutput* DataOutput()override;
 };
 #endif // REGISTER_GnuplotExtLoader_H

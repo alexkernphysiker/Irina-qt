@@ -23,16 +23,16 @@ class SIMULATIONSHARED_EXPORT Simulation:public SoDFReader
 public:
 	Simulation(SortProject *father);
 	Simulation(QDataStream &str, SortProject *father);
-	virtual void Save(QDataStream &str);
+	virtual void Save(QDataStream &str)override;
 	virtual ~Simulation();
-	virtual QString DisplayName();
-	virtual void *GetForm();
+	virtual QString DisplayName()override;
+	virtual void *GetForm()override;
 	// Data Event generating
-	virtual DataEvent *NextEvent(QDataStream &);
-	virtual void ReadHeader(QDataStream &datastr);
-	virtual void DataEventIsGot(DataEvent *Event);
-	virtual void FinalDataCheck();
-	virtual ReaderAsync *_getReaderAsync(QString m_path, SoDFReader *father);
+	virtual DataEvent *NextEvent(QDataStream &)override;
+	virtual void ReadHeader(QDataStream &datastr)override;
+	virtual void DataEventIsGot(DataEvent *Event)override;
+	virtual void FinalDataCheck()override;
+	virtual ReaderAsync *_getReaderAsync(QString m_path, SoDFReader *father)override;
 	// Custom simulation parameters
 	uint N();
 	void SetN(uint val);
@@ -51,9 +51,9 @@ class SIMULATIONSHARED_EXPORT SimulationAsync: public ReaderAsync{
 	Q_OBJECT
 public:
 	SimulationAsync(SoDFReader *father, uint N);
-	virtual void Open();
+	virtual void Open()override;
 protected slots:
-	virtual void process();
+	virtual void process()override;
 private:
 	QMutex m_mutex;
 	uint n;
@@ -65,11 +65,11 @@ class SIMULATIONSHARED_EXPORT RandomMagnitude: public SoFormula {
 public:
 	RandomMagnitude(SortProject *proj);
 	RandomMagnitude(QDataStream &str, SortProject *proj);
-	virtual void Save(QDataStream &str);
+	virtual void Save(QDataStream &str)override;
 	virtual ~RandomMagnitude();
-	virtual QString DisplayName();
-	virtual double Value(SoDFReader *fr, DataEvent *event);
-	virtual void* GetForm();
+	virtual QString DisplayName()override;
+	virtual double Value(SoDFReader *fr, DataEvent *event)override;
+	virtual void* GetForm()override;
 	double MaxVal();
 protected:
 	double maxval;
@@ -83,11 +83,11 @@ class SIMULATIONSHARED_EXPORT GaussMagnitude:public RandomMagnitude{
 public:
 	GaussMagnitude(SortProject *proj);
 	GaussMagnitude(QDataStream &str,SortProject *proj);
-	virtual void Save(QDataStream &str);
+	virtual void Save(QDataStream &str)override;
 	virtual ~GaussMagnitude();
-	virtual QString DisplayName();
-	virtual double Value(SoDFReader *fr, DataEvent *event);
-	virtual void *GetForm();
+	virtual QString DisplayName()override;
+	virtual double Value(SoDFReader *fr, DataEvent *event)override;
+	virtual void *GetForm()override;
 	double Average();
 	double Sigma();
 	uint Discr();
@@ -106,11 +106,11 @@ class SIMULATIONSHARED_EXPORT MixDistributions: public RandomMagnitude{
 public:
 	MixDistributions(SortProject *proj);
 	MixDistributions(QDataStream &str,SortProject *proj);
-	virtual void Save(QDataStream &str);
+	virtual void Save(QDataStream &str)override;
 	virtual ~MixDistributions();
-	virtual QString DisplayName();
-	virtual double Value(SoDFReader *fr, DataEvent *event);
-	virtual void *GetForm();
+	virtual QString DisplayName()override;
+	virtual double Value(SoDFReader *fr, DataEvent *event)override;
+	virtual void *GetForm()override;
 	uint Count();
 	double Probability(uint n);
 	QString Function(uint n);
@@ -125,12 +125,12 @@ class SIMULATIONSHARED_EXPORT DistributedByFunction:public RandomMagnitude{
 public:
 	DistributedByFunction(SoTblFunc *func);
 	DistributedByFunction(QDataStream &str, SortProject *father);
-	virtual void Save(QDataStream &str);
+	virtual void Save(QDataStream &str)override;
 	virtual ~DistributedByFunction();
-	virtual QString DisplayName();
-	virtual double Value(SoDFReader *fr, DataEvent *event);
-	virtual void *GetForm();
-	virtual SObject *DisplParrent();
+	virtual QString DisplayName()override;
+	virtual double Value(SoDFReader *fr, DataEvent *event)override;
+	virtual void *GetForm()override;
+	virtual SObject *DisplParrent()override;
 private slots:
 	void getdata();
 private:
@@ -143,10 +143,10 @@ class SIMULATIONSHARED_EXPORT SoBinarySumm:public SoBinaryOperator{
 public:
 	SoBinarySumm(SortProject *proj);
 	SoBinarySumm(QDataStream &str, SortProject *proj);
-	virtual void Save(QDataStream &str);
+	virtual void Save(QDataStream &str)override;
 	virtual ~SoBinarySumm();
-	virtual double F(double x, double y, SoDFReader *dr, DataEvent *event);
-	virtual void *GetForm();
+	virtual double F(double x, double y, SoDFReader *dr, DataEvent *event)override;
+	virtual void *GetForm()override;
 	int Count();
 	QString Summand(int index);
 	void Reset();

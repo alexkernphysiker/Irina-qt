@@ -13,11 +13,11 @@
 	public:
 		SoFBKin(SortProject *father);
 		SoFBKin(QDataStream &str, SortProject *father);
-		virtual void Save(QDataStream &str);
+		virtual void Save(QDataStream &str)override;
 		virtual ~SoFBKin();
-		virtual QString DisplayName();
-		virtual double Value(SoDFReader *fr, DataEvent *event);
-		virtual void *GetForm();
+		virtual QString DisplayName()override;
+		virtual double Value(SoDFReader *fr, DataEvent *event)override;
+		virtual void *GetForm()override;
 		QString ReturnType();
 		void SetI();
 		void SetAngle();
@@ -50,11 +50,11 @@
 	public:
 		SoRuth(SortProject *proj);
 		SoRuth(QDataStream &str, SortProject *proj);
-		virtual void Save(QDataStream &str);
+		virtual void Save(QDataStream &str)override;
 		virtual ~SoRuth();
-		virtual QString DisplayName();
-		virtual double Value(SoDFReader *fr, DataEvent *event);
-		virtual void *GetForm();
+		virtual QString DisplayName()override;
+		virtual double Value(SoDFReader *fr, DataEvent *event)override;
+		virtual void *GetForm()override;
 		QString Zp();
 		void SetZp(QString name);
 		QString Zt();
@@ -75,10 +75,10 @@
 	public:
 		SoSP1Line(SortProject *proj);
 		SoSP1Line(QDataStream &str,SortProject *proj);
-		virtual void Save(QDataStream &str);
+		virtual void Save(QDataStream &str)override;
 		virtual ~SoSP1Line();
-		virtual double F(double ex, double Ep, SoDFReader *dr, DataEvent *event);
-		virtual void *GetForm();
+		virtual double F(double ex, double Ep, SoDFReader *dr, DataEvent *event)override;
+		virtual void *GetForm()override;
 		QString Sigma();
 		void SetSigma(QString name);
 		QString N();

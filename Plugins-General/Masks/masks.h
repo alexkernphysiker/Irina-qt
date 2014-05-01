@@ -10,11 +10,11 @@ public:
 	ExtendedMask(SortProject *father);
 	ExtendedMask(QDataStream &str, SortProject *father);
 	virtual ~ExtendedMask();
-	virtual void Save(QDataStream &str);
+	virtual void Save(QDataStream &str)override;
 
-	virtual bool In(SoDFReader *dr, DataEvent *event);
-	virtual QString DisplayName();
-	virtual void *GetForm();
+	virtual bool In(SoDFReader *dr, DataEvent *event)override;
+	virtual QString DisplayName()override;
+	virtual void *GetForm()override;
 
 	QString Func1();
 	void SetFunc1(QString name);

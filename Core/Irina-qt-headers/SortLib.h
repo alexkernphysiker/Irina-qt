@@ -351,13 +351,13 @@ protected:
 public:
 	SoDFReader(QDataStream &str,SortProject *father);
 	virtual ~SoDFReader();
-	virtual void BeforeDelete();
-	virtual void LoadCache(QDataStream &str);
-	virtual void SaveCache(QDataStream &str);
+	virtual void BeforeDelete()override;
+	virtual void LoadCache(QDataStream &str)override;
+	virtual void SaveCache(QDataStream &str)override;
 	QString Path();//gets datafile path
 	QString Description();//gets description (filled from datafile. depends on data format implementation)
-	virtual QString DisplayName();
-	virtual void Save(QDataStream &str);
+	virtual QString DisplayName()override;
+	virtual void Save(QDataStream &str)override;
 	DFState State();//get datafile state (if there are warnings or errors occured while reading)
 	int NADC();// ADC count
 	QStringList ConstantNames();//get list of constant names
@@ -438,10 +438,10 @@ public:
 	SoEFilter(SortProject *father);
 	SoEFilter(QDataStream &str, SortProject *father);
 	virtual ~SoEFilter();
-	virtual void BeforeDelete();
-	virtual void Save(QDataStream &str);
+	virtual void BeforeDelete()override;
+	virtual void Save(QDataStream &str)override;
 	virtual bool In(SoDFReader *, DataEvent *event);//check if this event is accepted by filter
-	virtual QString DisplayName();
+	virtual QString DisplayName()override;
 	int ND();//get ND value
 	void SetND(int val);//set ND value
 private:
@@ -453,14 +453,14 @@ class SORTLIBSHARED_EXPORT SoEFWin:public SoEFilter{// SP1 Window
 public:
 	SoEFWin(SoSPAxis *axis);//spectrum axis configuration is given as a constructor parameter and isn't changed any more
 	SoEFWin(QDataStream &str,SortProject *father);
-	virtual void Save(QDataStream &str);
+	virtual void Save(QDataStream &str)override;
 	virtual ~SoEFWin();
-	virtual QString DisplayName();
-	virtual bool In(SoDFReader *, DataEvent *event);// though it's inherited from SoEFilter it doesn't take ND value into account
+	virtual QString DisplayName()override;
+	virtual bool In(SoDFReader *, DataEvent *event)override;// though it's inherited from SoEFilter it doesn't take ND value into account
 	SoSPAxis *Axis();//get spectrum axis which this window belongs to
 	bool In(int ch);//check if given channel number is accepted by this window
 	void SetIn(int ch,bool val);//set if given channel number is accepted by this window
-	virtual SObject *DisplParrent();
+	virtual SObject *DisplParrent()override;
 private:
 	SoSPAxis *m_axis;
 	bool *m_data;
@@ -472,10 +472,10 @@ class SORTLIBSHARED_EXPORT SoEFLoc: public SoEFilter{// SP2 Locus
 public:
 	SoEFLoc(SortProject *father);
 	SoEFLoc(QDataStream &str,SortProject *father);
-	virtual void Save(QDataStream &str);
+	virtual void Save(QDataStream &str)override;
 	virtual ~SoEFLoc();
-	virtual QString DisplayName();
-	virtual bool In(SoDFReader *, DataEvent *event);// though it's inherited from SoEFilter it doesn't take ND value into account
+	virtual QString DisplayName()override;
+	virtual bool In(SoDFReader *, DataEvent *event)override;// though it's inherited from SoEFilter it doesn't take ND value into account
 	//get and set axes
 	SoSPAxis *XAxis();
 	void SetXAxis(SoSPAxis *ax);
@@ -506,9 +506,9 @@ public:
 	SoECounter(SoDFReader *source);//takes datafile as constructor parameter and doesn't change it
 	SoECounter(QDataStream &str, SortProject *father);
 	virtual ~SoECounter();
-	virtual void Save(QDataStream &str);
-	virtual void LoadCache(QDataStream &str);
-	virtual void SaveCache(QDataStream &str);
+	virtual void Save(QDataStream &str)override;
+	virtual void LoadCache(QDataStream &str)override;
+	virtual void SaveCache(QDataStream &str)override;
 	SoDFReader *Source();//gets datafile instance it belongs to
 	int EventsCount();//get accepted events count
 	SoEFilter *Filter(int N);//get one of connected event filters by number
@@ -542,11 +542,11 @@ class SORTLIBSHARED_EXPORT SoECSP1:public SoECounter{// 1-d spectrum
 public:
 	SoECSP1(SoDFReader *reader);
 	SoECSP1(QDataStream &str,SortProject *father);
-	virtual void Save(QDataStream &str);
-	virtual void LoadCache(QDataStream &str);
-	virtual void SaveCache(QDataStream &str);
+	virtual void Save(QDataStream &str)override;
+	virtual void LoadCache(QDataStream &str)override;
+	virtual void SaveCache(QDataStream &str)override;
 	virtual ~SoECSP1();
-	virtual QString DisplayName();
+	virtual QString DisplayName()override;
 	void SetAxis(SoSPAxis *axis);// Sets the axis that will be used for this spectrum building
 	SoSPAxis *Axis();// gets currently set axis
 	int ChCnt(int channel); // gets events count in the channel
@@ -556,9 +556,9 @@ public:
 	void RemPeak(Peak *peak); // removes peak by index
 	void Export(); // Exports data to currently used data output extension
 protected:
-	virtual void DEInit();
-	virtual bool DEAccepted(DataEvent *event);
-	virtual void DEFinal();
+	virtual void DEInit()override;
+	virtual bool DEAccepted(DataEvent *event)override;
+	virtual void DEFinal()override;
 private:
 	SoSPAxis *m_axis;
 	uint *m_data;
@@ -592,11 +592,11 @@ class SORTLIBSHARED_EXPORT SoECSP2: public SoECounter{//2-d spectrum
 public:
 	SoECSP2(SoDFReader *reader);
 	SoECSP2(QDataStream &str, SortProject *father);
-	virtual void Save(QDataStream &str);
-	virtual void LoadCache(QDataStream &str);
-	virtual void SaveCache(QDataStream &str);
+	virtual void Save(QDataStream &str)override;
+	virtual void LoadCache(QDataStream &str)override;
+	virtual void SaveCache(QDataStream &str)override;
 	virtual ~SoECSP2();
-	virtual QString DisplayName();
+	virtual QString DisplayName()override;
 	void SetXAxis(SoSPAxis *ax); // set axis for X direction
 	void SetYAxis(SoSPAxis *ax); // set axis for Y direction
 	SoSPAxis *XAxis(); // get axis currently used for X direction
@@ -606,9 +606,9 @@ public:
 protected:
 	void AddCnt(int xch,int ych); // adds an event to a channel
 protected:
-	virtual void DEInit();
-	virtual bool DEAccepted(DataEvent *event);
-	virtual void DEFinal();
+	virtual void DEInit()override;
+	virtual bool DEAccepted(DataEvent *event)override;
+	virtual void DEFinal()override;
 private:
 	SoSPAxis *m_xax;
 	SoSPAxis *m_yax;
@@ -632,8 +632,8 @@ public:
 	SoValue(SortProject *father);
 	SoValue(QDataStream &str,SortProject *father);
 	virtual ~SoValue();
-	virtual void Save(QDataStream &str);
-	virtual QString DisplayName();
+	virtual void Save(QDataStream &str)override;
+	virtual QString DisplayName()override;
 	virtual void SetValue(double val);// Sets value
 	double Value();// gets value
 private:
@@ -658,9 +658,9 @@ class SORTLIBSHARED_EXPORT SoFormula:public SObject{// Function
 public:
 	SoFormula(SortProject *father);
 	SoFormula(QDataStream &str, SortProject *father);
-	virtual void Save(QDataStream &str);
+	virtual void Save(QDataStream &str)override;
 	virtual ~SoFormula();
-	virtual QString DisplayName();
+	virtual QString DisplayName()override;
 	void Set_Expression(Math_::Expr *expr);// Sets the expression
 	Math_::Expr *Expression();// Gets currently set expression
 	void Del_Expression();// Deletes the expression
@@ -685,10 +685,10 @@ class SORTLIBSHARED_EXPORT SoSPAxis:public SoFormula{// spectrum axis
 public:
 	SoSPAxis(SortProject *father);
 	SoSPAxis(QDataStream &str, SortProject *father);
-	virtual void Save(QDataStream &str);
+	virtual void Save(QDataStream &str)override;
 	virtual ~SoSPAxis();
-	virtual QString DisplayName();
-	virtual void BeforeDelete();
+	virtual QString DisplayName()override;
+	virtual void BeforeDelete()override;
 	void SetMin(double val);// Set minimum value of the function displayed on the axis
 	void SetMax(double val); // Set maximum value
 	void SetChannelW(double val);// Set channel width
@@ -711,9 +711,9 @@ class SORTLIBSHARED_EXPORT SoSPEnergy: public SoSPAxis{//Spectrum axis with dE-E
 public:
 	SoSPEnergy(SortProject *father);
 	SoSPEnergy(QDataStream &str, SortProject *father);
-	virtual void Save(QDataStream &str);
+	virtual void Save(QDataStream &str)override;
 	virtual ~SoSPEnergy();
-	virtual QString DisplayName();
+	virtual QString DisplayName()override;
 	void SetXAxis(SoSPAxis *ax);// Sets X-axis for dE-E spectrum this axix is calibrated with
 	void SetYAxis(SoSPAxis *ax);// Sets Y-axis for dE-E spectrum this axix is calibrated with
 	SoSPAxis *XAxis();// Gets X-axis for dE-E spectrum this axix is calibrated with
@@ -750,9 +750,9 @@ class SORTLIBSHARED_EXPORT SoGroupDF:public SObject{
 public:
 	SoGroupDF(SortProject *father);
 	SoGroupDF(QDataStream &str, SortProject *father);
-	virtual void Save(QDataStream &str);
+	virtual void Save(QDataStream &str)override;
 	virtual ~SoGroupDF();
-	virtual QString DisplayName();
+	virtual QString DisplayName()override;
 	void SetExpression(QString str);// Sets the identifier of function dependent on datafile used in calculation
 	QString Expression();// Gets the identifier of function dependent on datafile used in calculation
 	void AddDF(SoDFReader *source); // Adds a datafile for being processed
@@ -787,9 +787,9 @@ class SORTLIBSHARED_EXPORT SoDependency:public SObject{// plot data
 public:
 	SoDependency(SortProject *father);
 	SoDependency(QDataStream &str, SortProject *father);
-	virtual void Save(QDataStream &str);
+	virtual void Save(QDataStream &str)override;
 	virtual ~SoDependency();
-	virtual QString DisplayName();
+	virtual QString DisplayName()override;
 	void SetArgument(QString str);// Sets the identifier for X-value
 	void SetValue(QString str);// Sets the identifier for Y-value
 	void SetXError(QString str);// Sets the identifier for X-error
@@ -819,12 +819,12 @@ class SORTLIBSHARED_EXPORT SoDSewed:public SoDependency{// extended plot data
 public:
 	SoDSewed(SortProject *father);
 	SoDSewed(QDataStream &str, SortProject *father);
-	virtual void Save(QDataStream &str);
+	virtual void Save(QDataStream &str)override;
 	virtual ~SoDSewed();
-	virtual QString DisplayName();
+	virtual QString DisplayName()override;
 	void SetSewed(QString str);// Attach other plot data by name
 	QString Sewed();// Get the name of attached plot data
-	virtual void Export(); // Export data of this data set and attached one
+	virtual void Export()override; // Export data of this data set and attached one
 private:
 	QString m_sewwith;
 };
@@ -847,7 +847,7 @@ public:
 	SoUnaryOperator(SortProject *proj);
 	SoUnaryOperator(QDataStream &str, SortProject *proj);
 	virtual ~SoUnaryOperator();
-	virtual QString DisplayName();
+	virtual QString DisplayName()override;
 	virtual double F(double x, SoDFReader *, DataEvent *)=0;// is called in SortProject::GetUnary
 };
 class SORTLIBSHARED_EXPORT SoTblFunc:public SoUnaryOperator{// abstract table function
@@ -856,10 +856,10 @@ protected:
 	SoTblFunc(SortProject *father);
 public:
 	SoTblFunc(QDataStream &str, SortProject *father);
-	virtual void Save(QDataStream &str);
+	virtual void Save(QDataStream &str)override;
 	virtual ~SoTblFunc();
-	virtual QString DisplayName();
-	virtual double F(double x, SoDFReader *, DataEvent *);
+	virtual QString DisplayName()override;
+	virtual double F(double x, SoDFReader *, DataEvent *)override;
 	void Export();// Export data to currently used data output extension
 	int Count();// Get items count in the table
 	void GetItem(int n, double &x, double &y, double &dy);// get an item from table by index. x,y and dy are filled with the values
@@ -879,15 +879,15 @@ class SORTLIBSHARED_EXPORT SoTblFuncTxt:public SoTblFunc{// table function read 
 public:
 	SoTblFuncTxt(SortProject *father);
 	SoTblFuncTxt(QDataStream &str,SortProject *father, bool old=false);
-	virtual void Save(QDataStream &str);
+	virtual void Save(QDataStream &str)override;
 	virtual ~SoTblFuncTxt();
-	virtual QString DisplayName();
+	virtual QString DisplayName()override;
 	void SetPath(QString path);// Set text file path
 	QString Path();// get text file path
 	void SetColumn(uint ind, int col);// Set column number for index (0 - x; 1 - y; 2 - y-error); if column number is set to -1, it's filled with zeros
 	int Column(uint ind);// Get column number for index (0 - x; 1 - y; 2 - y-error)
 protected:
-	virtual void recalc();// read the text file and fill the table
+	virtual void recalc()override;// read the text file and fill the table
 private:
 	QString m_path;
 	int columns[3];
@@ -897,17 +897,17 @@ class SORTLIBSHARED_EXPORT SP1Norm:public SoTblFunc{// normalised spectrum
 public:
 	SP1Norm(SoECSP1 *sp1);// requires sp1 it will depend on
 	SP1Norm(QDataStream &str, SortProject *father);
-	virtual void Save(QDataStream &str);
+	virtual void Save(QDataStream &str)override;
 	virtual ~SP1Norm();
-	virtual QString DisplayName();
-	virtual SObject *DisplParrent();// is displayed as an sp1 subitem
+	virtual QString DisplayName()override;
+	virtual SObject *DisplParrent()override;// is displayed as an sp1 subitem
 	SoECSP1 *Spectrum();// gets the sp1 this object depends on
 	void SetNormFunc(QString name);// Sets the identifier of normalizing function
 	QString NormFunc();// Gets the identifier of normalizing function
 public slots:
 	void change();// is called when the sp1 changes
 protected:
-	virtual void recalc();
+	virtual void recalc()override;
 	QString m_func;
 private:
 	SoECSP1 *m_sp1;
@@ -917,13 +917,13 @@ class SORTLIBSHARED_EXPORT SP1Norm_CoefErr: public SP1Norm{//normalized spectrum
 public:
 	SP1Norm_CoefErr(SoECSP1 *sp1);
 	SP1Norm_CoefErr(QDataStream &str,SortProject *father);
-	virtual void Save(QDataStream &str);
+	virtual void Save(QDataStream &str)override;
 	virtual ~SP1Norm_CoefErr();
 	void SetNormFuncErr(QString name);// Sets the identifier of normalise coefficient error function
 	QString NormFuncErr();// Gets the identifier of normalise coefficient error function
 	void SetNormFunc(QString name,QString nameerr);// Sets the both identifiers: normalise function and normalise error function
 protected:
-	virtual void recalc();
+	virtual void recalc()override;
 private:
 	QString m_func_err;
 };
@@ -948,7 +948,7 @@ public:
 	SoBinaryOperator(SortProject *proj);
 	SoBinaryOperator(QDataStream &str, SortProject *proj);
 	virtual ~SoBinaryOperator();
-	virtual QString DisplayName();
+	virtual QString DisplayName()override;
 	virtual double F(double, double, SoDFReader *, DataEvent *)=0;// is called in SortProject::GetBinary
 };
 class SORTLIBSHARED_EXPORT SoTableOfTables:public SoBinaryOperator{// simple interpolated binary operator
@@ -956,9 +956,9 @@ class SORTLIBSHARED_EXPORT SoTableOfTables:public SoBinaryOperator{// simple int
 public:
 	SoTableOfTables(SortProject *proj);
 	SoTableOfTables(QDataStream &str,SortProject *proj);
-	virtual void Save(QDataStream &str);
+	virtual void Save(QDataStream &str)override;
 	virtual ~SoTableOfTables();
-	virtual double F(double x, double y, SoDFReader *dr, DataEvent *event);
+	virtual double F(double x, double y, SoDFReader *dr, DataEvent *event)override;
 	void Add(double y, QString name);// add y-value and unary operator name pair
 	QString GetUnaryName(int index);// get unary operator name by the index
 	double GetY(int index);// get y-value by the index
@@ -968,8 +968,5 @@ private:
 	QList<double> m_yvalues;
 	QList<QString> m_unarynames;
 };
-
-
-
 
 #endif // SORTPROJECT_H

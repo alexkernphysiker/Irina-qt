@@ -29,7 +29,7 @@ class TxtData:public SoDFReader{
 
 		// this virtual method declared in basic SoDFReader class
 		// is called when a data event is read from datafile
-		virtual DataEvent *NextEvent(QDataStream &datastr);
+		virtual DataEvent *NextEvent(QDataStream &datastr)override;
 };
 
 #endif

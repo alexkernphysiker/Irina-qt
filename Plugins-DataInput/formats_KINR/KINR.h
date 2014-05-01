@@ -25,14 +25,14 @@ class SoD00V:public SoDFReader{
 
 		// this virtual method declared in basic SoDFReader class
 		// is called when a data event is read from datafile
-		virtual DataEvent *NextEvent(QDataStream &datastr);
+		virtual DataEvent *NextEvent(QDataStream &datastr)override;
 	protected:
 		// this method reads datafile header
-		virtual void ReadHeader(QDataStream &datastr);
+		virtual void ReadHeader(QDataStream &datastr)override;
 
 		// this method checks if the data stored in the file are correct after
 		// the reading is finished. The warning is displayed if something is wrong
-		virtual void FinalDataCheck();
+		virtual void FinalDataCheck()override;
 	private:
 		QMutex readmutex;
 		QList<int> m_monitors;
@@ -51,14 +51,14 @@ class SoD00Z:public SoDFReader{
 
 		// this virtual method declared in basic SoDFReader class
 		// is called when a data event is read from datafile
-		virtual DataEvent *NextEvent(QDataStream &datastr);
+		virtual DataEvent *NextEvent(QDataStream &datastr)override;
 	protected:
 		// this method reads datafile header
-		virtual void ReadHeader(QDataStream &datastr);
+		virtual void ReadHeader(QDataStream &datastr)override;
 
 		// this method checks if the data stored in the file are correct after
 		// the reading is finished. The warning is displayed if something is wrong
-		virtual void FinalDataCheck();
+		virtual void FinalDataCheck()override;
 	private:
 		QMutex readmutex;
 		QList<int> m_monitors;

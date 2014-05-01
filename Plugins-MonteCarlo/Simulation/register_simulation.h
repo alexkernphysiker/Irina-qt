@@ -6,7 +6,7 @@ class SimulationLoader: public QObject, public LoaderInterface{
 	Q_INTERFACES(LoaderInterface)
 public:
 	virtual ~SimulationLoader(){}
-	virtual bool Register();
-	virtual bool Unregister();
+	virtual bool Register()override;
+	virtual bool Unregister()override;
 };
 #endif // REGISTER_SIMULATION_H
