@@ -16,3 +16,12 @@ Plugins-General/ - the description and the source code of plugins
 
 Plugins-MonteCarlo/ - the description and the source code of
       plugins providing Monte Carlo simulation algorithms.
+
+This program requires libraries from MathLibs repository.
+Project files are configured so, that you should clone these two
+repositories into the same directory.
+
+md alexkernphysiker
+cd alexkernphysiker
+git clone https://github.com/alexkernphysiker/MathLibs.git
+git clone https://github.com/alexkernphysiker/Irina-qt.git
