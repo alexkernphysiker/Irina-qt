@@ -339,7 +339,41 @@ void GenOtherPlugin(QString projName, QDir projDir){
 	delete form;
 }
 
-void GenOutPlugin(QString , QDir ){
+void GenMathLibsApp(QString projName, QDir projDir){
+    QDir destdir = QDir(qApp->applicationDirPath());
+    GeneratedFile projectfile(projName+".pro");
+    projectfile.SetDir(projDir)->
+            AddLine("#MathLibs installation path")->
+            AddLine(QString("DESTDIR = ")+destdir.path())->
+            AddLine("DEPENDPATH += $$DESTDIR")->
+            AddLine("win32: DLLDESTDIR = $$DESTDIR")->
+            Add((new CppNested("CONFIG (debug, debug|release) ",true))->
+                AddLine("OBJECTS_DIR=$$DESTDIR/debug")
+                )->
+            Add((new CppNested("else",true))->
+                AddLine("OBJECTS_DIR=$$DESTDIR/release")
+                )->
+            AddLine("LIBS += -L$$DEPENDPATH -lcomplex")->
+            AddLine("LIBS += -L$$DEPENDPATH -lmath_func")->
+            AddLine("LIBS += -L$$DEPENDPATH -lmath_expression")->
+            AddLine("LIBS += -L$$DEPENDPATH -lgenerateSource")->
+            AddLine("LIBS += -L$$DEPENDPATH -lapro_gen")->
+            Add((new CppNested("unix: ",true))->
+                AddLine("QMAKE_LFLAGS += -Wl,--rpath=$$PWD/$$DESTDIR")->
+                AddLine("QMAKE_LFLAGS_RPATH=")
+                )->
+            AddLine("#Path to the headers (in linux can differ)")->
+            AddLine("INCLUDEPATH +=$$DESTDIR/include/MathLibs")->
+            AddLine("#Standard C++11 if supported")->
+            AddLine("QMAKE_CXXFLAGS+=-std=c++11")->
+            AddLine("#Standard C++11 if not supported")->
+            AddLine("#DEFINES += override=")->
+            AddLine("#Configure project")->
+            AddLine("QT+= core gui")->
+            AddLine("CONFIG += plugin")->
+            AddLine("TEMPLATE = app")->
+            AddLine(QString("TARGET   = ")+projName+"");
+    projectfile.Save();
 }
 
 void MasterWindow::on_create_clicked()
@@ -357,8 +391,8 @@ void MasterWindow::on_create_clicked()
 			if(ui->choose_func->isChecked()){
 				GenFuncPlugin(projName,projDir);
 			}else{
-				if(ui->choose_out->isChecked()){
-					GenOutPlugin(projName,projDir);
+                if(ui->choose_mathlibs->isChecked()){
+                    GenMathLibsApp(projName,projDir);
 				}else{
 					if(ui->choose_other->isChecked()){
 						GenOtherPlugin(projName,projDir);
@@ -400,4 +434,9 @@ void MasterWindow::on_choose_out_toggled(bool checked)
 void MasterWindow::on_choose_other_toggled(bool checked)
 {
 	if(checked)ui->name->setText("MyObject");
+}
+
+void MasterWindow::on_choose_mathlibs_toggled(bool checked)
+{
+    if(checked)ui->name->setText("MyMathLibsApp");
 }

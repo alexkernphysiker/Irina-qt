@@ -61,9 +61,9 @@
      <string>Function plugin</string>
     </property>
    </widget>
-   <widget class="QRadioButton" name="choose_out">
+   <widget class="QRadioButton" name="choose_mathlibs">
     <property name="enabled">
-     <bool>false</bool>
+     <bool>true</bool>
     </property>
     <property name="geometry">
      <rect>
@@ -74,7 +74,7 @@
      </rect>
     </property>
     <property name="text">
-     <string>Data output plugin</string>
+     <string>Empty MathLibs project</string>
     </property>
    </widget>
    <widget class="QRadioButton" name="choose_other">

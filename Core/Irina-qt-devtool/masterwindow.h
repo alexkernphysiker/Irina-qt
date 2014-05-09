@@ -30,6 +30,8 @@ private slots:
 
 	void on_choose_other_toggled(bool checked);
 
+    void on_choose_mathlibs_toggled(bool checked);
+
 private:
 	Ui::MasterWindow *ui;
 };
