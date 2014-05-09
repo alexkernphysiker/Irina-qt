@@ -1,0 +1,3 @@
+For devtool could work please create "include" sub-directory 
+in the directory where the binaries are created and copy 
+directory Core/Irina-qt-headers there.

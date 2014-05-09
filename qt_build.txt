@@ -1,6 +1,7 @@
 Building all qt projects in this repository requires file qt_build_path.pri. 
 It should be created in upper directory.
-Here is an example of it's possible content:
+Here is an example of it's possible content
+
 #BEGIN qt_build_path.pri
 #build location
 DESTDIR = <your build path>
@@ -15,5 +16,7 @@ unix:{
 }
 win32: DEFINES += WINBUILD
 #END qt_build_path.pri
-It can be use also for building other repositories from by Github account.
-For this could be possible, call "git clone" command for all repositories at the same directory and put the file qt_build_path.pri in it.
+
+After creating this file please run "get_dep" script
+and then run "buildme" script and the binaries should appear
+in <your build path>
