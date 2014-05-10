@@ -1,3 +1,6 @@
+Build requires libqt and libqt-devel packages installed on your system.
+Data output plugin uses gnuplot sowtware, so it should also be installed.
+The configuration and build can be done automatically.
 Run script "1-autoconf" for creating directory for binaries
 and file qt_build_path.pri required for all qmake projects here.
 Edit this file if needed (View it to see if it's needed!!!!)
