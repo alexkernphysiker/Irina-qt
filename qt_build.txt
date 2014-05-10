@@ -1,22 +1,6 @@
-Building all qt projects in this repository requires file qt_build_path.pri. 
-It should be created in upper directory.
-Here is an example of it's possible content
-
-#BEGIN qt_build_path.pri
-#build location
-DESTDIR = <your build path>
-win32: DLLDESTDIR = $$DESTDIR
-DEPENDPATH += $$DESTDIR
-#configuration
-QMAKE_CXXFLAGS+=-std=c++11   #if c++11 is available
-DEFINES += override=         #otherwise
-unix:{
-  QMAKE_LFLAGS += -Wl,--rpath=$$DESTDIR
-  QMAKE_LFLAGS_RPATH=
-}
-win32: DEFINES += WINBUILD
-#END qt_build_path.pri
-
-After creating this file please run "get_dep" script
-and then run "buildme" script and the binaries should appear
-in <your build path>
+Run script "1-autoconf" for creating directory for binaries
+and file qt_build_path.pri required for all qmake projects here.
+Edit this file if needed (View it to see if it's needed!!!!)
+After creating this file please run "2-get_dep" script for downloading
+required repository(ies). Then you may run "3-buildme" for building 
+and the binaries should appear in ../bin directory
