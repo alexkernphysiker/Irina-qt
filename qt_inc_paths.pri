@@ -6,6 +6,5 @@
 #include paths inside Irina-qt repository
 INCLUDEPATH += ../../Core/Irina-qt-headers
 INCLUDEPATH += ../..#root of this repository
-#please also clone this repository
-#https://github.com/alexkernphysiker/MathLibs
+#MathLibs includes
 INCLUDEPATH += ../../../MathLibs
