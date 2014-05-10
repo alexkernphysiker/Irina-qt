@@ -1,5 +1,6 @@
 include("../../../qt_build_path.pri")
 include("../../qt_inc_paths.pri")
+win32: DEFINES += WINBUILD
 #Irina-qt
 LIBS += -L$$DESTDIR -lSortLib
 #project configuration
