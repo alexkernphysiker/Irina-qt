@@ -4,7 +4,7 @@ This is the program for analysis of data obtained in multiparameter
 nuclear measurements either inclusive or measurements with coincidents.
 Provides interface for dynamically loaded plugins.
 
-Core/ - the description and the source code of core modules and executables.
+Core/ - the description and the source code of core modules and executable.
 
 DataOutput/ - the source code of modules for data output
 

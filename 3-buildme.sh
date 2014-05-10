@@ -17,10 +17,6 @@ cd Irina-qt-executable
 qmake irina-qt-executable.pro
 make
 cd ..
-cd Irina-qt-devtool
-qmake Irina-qt-devtool.pro
-make
-cd ..
 cd ..
 cd DataOutput
 cd output-gnuplot

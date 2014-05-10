@@ -1,1 +1,0 @@
-Installing Irina-qt to path that contains spaces will make the Developers Tool to work incorrectly.
