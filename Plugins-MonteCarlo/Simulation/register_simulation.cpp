@@ -7,7 +7,7 @@
 #include "mixedview.h"
 #include "binsumview.h"
 
-QString Caption_sim(){return "Monte Carlo/1.6";}
+QString Caption_sim(){return "Monte Carlo/1.7";}
 
 SObject *loadsim(QDataStream &str,SortProject *father){
 	return new Simulation(str,father);

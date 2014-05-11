@@ -1,12 +1,6 @@
 #include <SortLib.h>
-#include <functions/functions.h>
-
-
-bool interp_table_test(QList<double> &X, double x, int i,int ofs=0){
-	if(i>=(X.count()-ofs))
-		return false;
-	return X.at(i)<=x;
-}
+//#include <functions/functions.h>
+#include <functions/math_templates.h>
 
 
 SoUnaryOperator::SoUnaryOperator(SortProject *proj):SObject(proj){AddType(5);}
@@ -32,67 +26,26 @@ void SoTblFunc::clear_values(){X.clear();Y.clear();dY.clear();}
 
 void SoTblFunc::add_item(double x, double y, double dy){
 	int i=0;
-	while(interp_table_test(X,x,i))i++;
+	if(X.count()>0)i=Math_::WhereToInsert(0,X.count()-1,X,x);
 	X.insert(i,x);Y.insert(i,y);dY.insert(i,dy);
 }
 typedef double* pdouble;
 double SoTblFunc::F(double x, SoDFReader *, DataEvent *){//ToDo: use better interpolation alhorythm
 	if(X.count()==0)return 0;
 	if(X.count()==1)return Y[0];
-	int i=0;
-	while(interp_table_test(X,x,i,2))i++;
-	if(i==0)i++;
-	double** A=new pdouble[4];
-	for(int i=0; i<4;i++)A[i]=new double[4];
-	double* B=new double[4];
-	double* K=new double[4];
-	B[0]=Y[i];B[1]=Y_[i];
-	B[2]=Y[i-1];B[3]=Y_[i-1];
-	A[0][0]=1;
-	for(int ind=1;ind<4;ind++){
-		A[0][ind]=X[i]*A[0][ind-1];
-	}
-	A[1][0]=0;{
-		double xx=1;
-		for(int ind=1;ind<4;ind++){
-			A[1][ind]=xx*ind;
-			xx*=X[i];
-		}
-	}
-	A[2][0]=1;
-	for(int ind=1;ind<4;ind++){
-		A[2][ind]=X[i-1]*A[2][ind-1];
-	}
-	A[3][0]=0;{
-		double xx=1;
-		for(int ind=1;ind<4;ind++){
-			A[3][ind]=xx*ind;
-			xx*=X[i-1];
-		}
-	}
-	Math_::Kramer(4,A,B,K);
-	for(int i=0; i<4;i++)delete[] A[i];
-	delete[] A;
-	delete[] B;
-	double res=0;	{
-		double arg=1;
-		for(int ind=0;ind<4;ind++){
-			res+=arg*K[ind];
-			arg*=x;
-		}
-	}
-	delete[] K;
-	return res;
+	if(x<=X[0])return Y[0];
+	if(x>=X[X.count()-1])return Y[X.count()-1];
+	return Math_::Interpolate_Linear(0,X.count()-1,X,Y,x);
 }
 
 void SoTblFunc::Export(){
 	out_1d(Name());
-	for(int i=0; i<X.count();i++){
+	for(int i=0; i<Count();i++){
 			DataEvent *item=new DataEvent(4);
-			item->Set_ADC(0,X.at(i));
-			item->Set_ADC(1,Y.at(i));
+			item->Set_ADC(0,X[i]);
+			item->Set_ADC(1,Y[i]);
 			item->Set_ADC(2,0);
-			item->Set_ADC(3,dY.at(i));
+			item->Set_ADC(3,dY[i]);
 			item->Freeze();
 			out_dataitem(item);
 	}
@@ -108,25 +61,6 @@ void SoTblFunc::GetItem(int n, double &x, double &y, double &dy){
 		x=0;y=0;dy=0;
 	}
 }
-void SoTblFunc::recalc(){
-	// inherited class should fill X and Y and then call this implementation
-	Y_.clear();
-	int n=Y.count();
-	if(n>1){
-		Y_<<(Y[1]-Y[0])/(X[1]-X[0]);
-		for(int i=1; i<n-1;i++){
-			double y_1=(Y[i]-Y[i-1])/(X[i]-X[i-1]);
-			double y_2=(Y[i+1]-Y[i])/(X[i+1]-X[i]);
-			Y_<<(y_1+y_2)/2;
-		}
-		Y_<<(Y[n-1]-Y[n-2])/(X[n-1]-X[n-2]);
-	}
-	if(n==1){
-		Y_<<0;
-	}
-}
-
-
 
 SoTblFuncTxt::SoTblFuncTxt(SortProject *father):SoTblFunc(father){
 	AddType(3);m_path="";
@@ -206,7 +140,6 @@ void SoTblFuncTxt::recalc(){
 		}
 		file.close();
 	}
-	SoTblFunc::recalc();
 }
 
 SP1Norm::SP1Norm(SoECSP1 *sp1):SoTblFunc(sp1->Owner()){
@@ -258,7 +191,6 @@ void SP1Norm::recalc(){
 		double dy=sqrt(double(cnt))*K;
 		add_item(x, y, dy);
 	}
-	SoTblFunc::recalc();
 }
 
 SObject *SP1Norm::DisplParrent(){return m_sp1;}
@@ -297,7 +229,6 @@ void SP1Norm_CoefErr::recalc(){
 		double dy=sqrt(double(cnt)*K2+dK);
 		add_item(x, y, dy);
 	}
-	SoTblFunc::recalc();
 }
 
 
@@ -358,7 +289,8 @@ QString SoTableOfTables::GetUnaryName(int index){
 void SoTableOfTables::Add(double y, QString name){
 	if(name=="")return;
 	int i=0;
-	while(interp_table_test(m_yvalues,y,i))i++;
+	if(m_yvalues.count()>0)
+		i=Math_::WhereToInsert(0,m_yvalues.count()-1,m_yvalues,y);
 	m_yvalues.insert(i,y);m_unarynames.insert(i,name);
 	changed(this);
 }
@@ -366,7 +298,8 @@ double SoTableOfTables::F(double x, double y, SoDFReader *dr, DataEvent *event){
 	if(Count()==0)return 0;
 	if(Count()==1)return Owner()->GetUnary(m_unarynames[0],x,dr,event);
 	int i=0;
-	while(interp_table_test(m_yvalues,y,i,2))i++;
+	if(m_yvalues.count()>0)
+		i=Math_::WhereToInsert(0,m_yvalues.count()-1,m_yvalues,y);
 	if(i==0)i++;
 	double fi=Owner()->GetUnary(m_unarynames[i],x,dr,event);
 	double fn=Owner()->GetUnary(m_unarynames[i-1],x,dr,event);

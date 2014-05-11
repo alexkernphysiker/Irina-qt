@@ -1,8 +1,10 @@
 #ifndef SIMULATION_H
 #define SIMULATION_H
 #include <QtCore/qglobal.h>
+#include <QObject>
 #include <SortLib.h>
 #include <SortLibGui.h>
+#include <functions/functions.h>
 #if defined(SIMULATION_LIBRARY)
 #  define SIMULATIONSHARED_EXPORT Q_DECL_EXPORT
 #else
@@ -120,6 +122,18 @@ private:
 	QList<SubDistr> data;
 };
 
+class SIMULATIONSHARED_EXPORT TblFuncGetter:public Math_::FunctionGetter{
+	Q_OBJECT
+public:
+	TblFuncGetter(SoTblFunc* f);
+	virtual ~TblFuncGetter(){}
+	SoTblFunc* Owner();
+public slots:
+	virtual double F(double x)override;
+private:
+	SoTblFunc* m_func;
+};
+
 class SIMULATIONSHARED_EXPORT DistributedByFunction:public RandomMagnitude{
 	Q_OBJECT
 public:
@@ -135,7 +149,7 @@ private slots:
 	void getdata();
 private:
 	SoTblFunc *m_func;
-	double *m_distr;
+	Math_::RandomValueGenerator* randomizer;
 };
 
 class SIMULATIONSHARED_EXPORT SoBinarySumm:public SoBinaryOperator{

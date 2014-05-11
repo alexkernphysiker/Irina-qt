@@ -867,11 +867,11 @@ protected:
 	void clear_values();// clear the table before refreshing
 	void add_item(double x, double y, double dy);// add item to the table
 protected slots:
-	virtual void recalc();// recalculates or refreshes the table this ipmlementation prepares for interpolation and should be called in inherited one
+	// recalculates or refreshes the table this ipmlementation
+	virtual void recalc()=0;
 private:
 	QList<double> X;
 	QList<double> Y;
-	QList<double> Y_;
 	QList<double> dY;
 };
 class SORTLIBSHARED_EXPORT SoTblFuncTxt:public SoTblFunc{// table function read from text file

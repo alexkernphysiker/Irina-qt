@@ -1,6 +1,7 @@
 #include <SortLibGui.h>
 #include <simulation.h>
 #include <functions/functions.h>
+#include <functions/math_templates.h>
 #include "simulationview.h"
 #include "randomview.h"
 #include <QLabel>
@@ -161,7 +162,7 @@ QString RandomMagnitude::DisplayName(){
 double RandomMagnitude::Value(SoDFReader */*fr*/, DataEvent *event){
 	if(last!=event){
 		last=event;
-		lastval=Math_::RandomUniformly(0,1);
+		lastval=Math_::RandomUniformly(0,maxval);
 	}
 	return lastval;
 }
@@ -309,8 +310,8 @@ double MixDistributions::Value(SoDFReader *fr, DataEvent *event){
 	}
 	double rand=RandomMagnitude::Value(fr,event);
 	uint index=0;
-	while(((table[index])<=rand)&(index<(Count()-1)))
-		index++;
+	if(Count()>0) index=Math_::WhereToInsert(0,Count()-1,table,rand);
+	if(index>=Count())throw;
 	val=0;
 	Owner()->GetVar(Function(index),&val,fr,event);
 	return val;
@@ -322,36 +323,47 @@ void *MixDistributions::GetForm(){
 	return (void*)(form);
 }
 
+TblFuncGetter::TblFuncGetter(SoTblFunc *f){m_func=f;}
+SoTblFunc* TblFuncGetter::Owner(){return m_func;}
+double TblFuncGetter::F(double x){
+	return m_func->F(x,NULL,NULL);
+}
 
 DistributedByFunction::DistributedByFunction(SoTblFunc *func):RandomMagnitude(func->Owner()){
-	AddType(4);m_func=func;m_distr=NULL;maxval=1;
+	AddType(4);
+	randomizer=NULL;
+	m_func=func;
+	maxval=1;
 	getdata();
-	connect(m_func,SIGNAL(deleting()),this, SLOT(remove()));
-	connect(m_func,SIGNAL(changed(SObject*)),this,SLOT(getdata()));
+	connect(func,SIGNAL(deleting()),this, SLOT(remove()));
+	connect(func,SIGNAL(changed(SObject*)),this,SLOT(getdata()));
 }
 DistributedByFunction::DistributedByFunction(QDataStream &str, SortProject *father):RandomMagnitude(str,father){
-	AddType(4);m_func=NULL;m_distr=NULL;maxval=1;
+	AddType(4);maxval=1;
+	randomizer=NULL;
+	m_func=NULL;
 	int ind=-1;
 	str.readRawData((char*)&ind,sizeof(int));
 	SObject *so=Owner()->at(ind);
 	if(so!=NULL){
 		if(so->Is(SOT_SoTblFunc)){
-			m_func=(SoTblFunc*)so;
+			m_func=dynamic_cast<SoTblFunc*>(so);
+			getdata();
 			connect(m_func,SIGNAL(deleting()),this, SLOT(remove()));
+			connect(m_func,SIGNAL(changed(SObject*)),this,SLOT(getdata()));
 		}else
 			error("Cannot find function for distribution");
 	}else error("Cannot find function for distribution");
-	getdata();
-	connect(m_func,SIGNAL(deleting()),this, SLOT(remove()));
-	connect(m_func,SIGNAL(changed(SObject*)),this,SLOT(getdata()));
 }
 void DistributedByFunction::Save(QDataStream &str){
-	if(m_func==NULL)return;
+	if(randomizer==NULL)return;
 	RandomMagnitude::Save(str);
 	int ind=Owner()->Number(m_func);
 	str.writeRawData((char*)&ind,sizeof(int));
 }
-DistributedByFunction::~DistributedByFunction(){if(m_distr!=NULL)delete [] m_distr;}
+DistributedByFunction::~DistributedByFunction(){
+	if(randomizer!=NULL)delete randomizer;
+}
 QString DistributedByFunction::DisplayName(){return "FUNC::RAND::CUSTOMDISTR "+Name();}
 void *DistributedByFunction::GetForm(){
 	RandomView *form=new RandomView(this);
@@ -360,54 +372,27 @@ void *DistributedByFunction::GetForm(){
 	return (void*)(form);
 }
 void DistributedByFunction::getdata(){
-	if(m_distr!=NULL)delete [] m_distr;
-	if(m_func==NULL){
-		m_distr=NULL;
-		return;
-	}
-	int n=m_func->Count();
-	if(n>1){
-		m_distr = new double[n];
-		m_distr[0]=0;
-		{
-			double x=0;
-			double y=0;
-			double dy=0;
-			m_func->GetItem(0,x,y,dy);
-			for(int i=1; i<n; i++){
-				double nx=0;
-				double ny=0;
-				m_func->GetItem(i,nx,ny,dy);
-				m_distr[i]=m_distr[i-1]+((nx-x)*(ny+y)/2);
-				x=nx;y=ny;
-			}
-		}
-		double k=m_distr[n-1];
-		for(int i=0; i<n; i++)
-			m_distr[i]/=k;
-	}else m_distr=NULL;
+	if(m_func==NULL)return;
+	if(randomizer!=NULL)delete randomizer;
+	randomizer=new Math_::RandomValueGenerator(new TblFuncGetter(m_func));
+	int cnt=m_func->Count();
+	if(cnt<2)return;
+	double x1=0;
+	double x2=0;
+	double y=0,s=0;
+	m_func->GetItem(0,x1,y,s);
+	m_func->GetItem(cnt-1,x2,y,s);
+	s=(x2-x1)/(cnt*100);
+	randomizer->Init(x1,x2,s);
 }
-double DistributedByFunction::Value(SoDFReader *fr, DataEvent *event){
-	int n=m_func->Count();
-	if(n>1){
-		double rand=RandomMagnitude::Value(fr,event);
-		double x=0;
-		double y=0;
-		double dy=0;
-		int index=0;
-		while((index<(n-1))&(m_distr[index]<rand)){
-			index++;
-		}
-		double px=0;
-		if(index>0)
-			m_func->GetItem(index-1,px,y,dy);
-		else{
-			m_func->GetItem(0,px,y,dy);
-			return px;
-		}
-		m_func->GetItem(index,x,y,dy);
-		return px+(rand-m_distr[index-1])*(x-px)/(m_distr[index]-m_distr[index-1]);
-	}else return 0;
+
+double DistributedByFunction::Value(SoDFReader*, DataEvent *event){
+	if(m_func==NULL)return 0;
+	if(last!=event){
+		last=event;
+		lastval=randomizer->GetValue();
+	}
+	return lastval;
 }
 SObject *DistributedByFunction::DisplParrent(){
 	return m_func;
