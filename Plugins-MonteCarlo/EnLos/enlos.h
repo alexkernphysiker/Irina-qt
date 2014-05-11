@@ -2,7 +2,6 @@
 #define ENLOSINTARGET_H
 #include <SortLib.h>
 #include <SortLibGui.h>
-#include <Plugins-MonteCarlo/Simulation/simulation.h>
 
 #define SOT_EnLos 0x011010
 #define SOT_EnLosInTarget 0x021010
@@ -77,8 +76,6 @@ private:
 	double m_dE;
 	double m_Emax;
 	QString m_d3cs_domegadE;
-	RandomMagnitude *random_pos;
-	RandomMagnitude *random_en;
 	QMutex m_mutex;
 };
 //*/

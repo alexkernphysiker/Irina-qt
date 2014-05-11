@@ -24,7 +24,7 @@ SObject * addenlossintarget(SortProject *pr, SObject *){
 
 #include "register_enlos.h"
 bool EnLosLoader::Register(){
-	return RegisterSoType(new SoTypeReg("Energy loss/1.4 (Charged particle energy loss calculation)",
+	return RegisterSoType(new SoTypeReg("Energy loss/1.5 (Charged particle energy loss calculation)",
 								 "Charged particle energy loss", SoCatFormula,
 								 0x01,SOT_EnLos_gl,&loadenloss, &addenloss)) &&
 	RegisterSoType(new SoTypeReg("","Calculator of energy loss in the target", SoCatFormula,

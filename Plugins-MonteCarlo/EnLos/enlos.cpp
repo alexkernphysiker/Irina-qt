@@ -1,8 +1,9 @@
-#include <enlos.h>
+#include "enlos.h"
 #include "enlosview.h"
 #include "enlossintargetview.h"
+#include <functions/functions.h>
+#include <functions/math_templates.h>
 #include <QMutexLocker>
-
 
 double GetFinalEnergy(double E, double de, double X, SortProject *proj, QString stp,SoDFReader *fr, DataEvent *event){
 	for(double x=0;(E>de)&(x<X);E-=de){
@@ -112,8 +113,6 @@ EnLossInTarget::EnLossInTarget(SortProject *proj):SoFormula(proj){
 	m_xstp="";
 	m_d3cs_domegadE="";
 	m_dx=1.0;m_dE=0.01;m_Emax=10;
-	random_pos=new RandomMagnitude(Owner());
-	random_en=new RandomMagnitude(Owner());
 	prob_tbl=NULL;
 	allocate_cstbl();
 }
@@ -130,8 +129,6 @@ EnLossInTarget::EnLossInTarget(QDataStream &str, SortProject *proj):SoFormula(st
 	str.readRawData((char*)&m_dx,sizeof(double));
 	str.readRawData((char*)&m_dE,sizeof(double));
 	str.readRawData((char*)&m_Emax,sizeof(double));
-	random_pos=new RandomMagnitude(Owner());
-	random_en=new RandomMagnitude(Owner());
 	prob_tbl=NULL;
 	allocate_cstbl();
 }
@@ -149,8 +146,6 @@ void EnLossInTarget::Save(QDataStream &str){
 	str.writeRawData((char*)&m_Emax,sizeof(double));
 }
 EnLossInTarget::~EnLossInTarget(){
-	delete random_pos;
-	delete random_en;
 	remove_cstbl();
 }
 QString EnLossInTarget::DisplayName(){return "FUNC::EnLoss::target "+Name();}
@@ -285,7 +280,7 @@ double EnLossInTarget::Value(SoDFReader *fr, DataEvent *event){
 	double Xx=thickness;
 	{
 		//describes the position of interaction point inside the target
-		double pos_rel=random_pos->Value(fr,event)/random_pos->MaxVal();
+		double pos_rel=Math_::RandomUniformly(0,1);
 		{//Xp - projectile particle's run through target before interaction
 			double cos_th=Owner()->GetUnary("abs",	Owner()->GetUnary("cosd",thetat,fr,event),fr,event);
 			if(cos_th==0)return 0;//wrong target position
@@ -297,7 +292,7 @@ double EnLossInTarget::Value(SoDFReader *fr, DataEvent *event){
 			if(cos_th_rel>0){
 				Xx*=(1-pos_rel)/cos_th_rel;
 			}else{
-				Xx*=(pos_rel)/Owner()->GetUnary("abs",cos_th_rel,fr,event);
+				Xx*=-(pos_rel)/cos_th_rel;
 			}
 		}
 	}
@@ -311,11 +306,8 @@ double EnLossInTarget::Value(SoDFReader *fr, DataEvent *event){
 		prob_tbl[0]=0;
 		for(int i=1; i<=sz;i++)
 			prob_tbl[i]=Owner()->GetBinary(CrossSection(),dE()*i,E,fr,event)*dE()+prob_tbl[i-1];
-		for(int i=0;i<=sz;i++)
-			prob_tbl[i]/=prob_tbl[sz];
-		double en_det=random_en->Value(fr,event)/random_en->MaxVal();
-		int i=1;
-		while((i<sz)&(prob_tbl[i]<en_det))i++;
+		double en_det=Math_::RandomUniformly(0,prob_tbl[sz]);
+		int i=Math_::WhereToInsert(0,sz,prob_tbl,en_det);
 		E=i*m_dE;
 		E-=m_dE*(prob_tbl[i] - en_det)/(prob_tbl[i]-prob_tbl[i-1]);
 	}//E contains product energy just after interaction
