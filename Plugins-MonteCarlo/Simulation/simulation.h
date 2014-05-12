@@ -122,18 +122,6 @@ private:
 	QList<SubDistr> data;
 };
 
-class SIMULATIONSHARED_EXPORT TblFuncGetter:public Math_::FunctionGetter{
-	Q_OBJECT
-public:
-	TblFuncGetter(SoTblFunc* f);
-	virtual ~TblFuncGetter(){}
-	SoTblFunc* Owner();
-public slots:
-	virtual double F(double x)override;
-private:
-	SoTblFunc* m_func;
-};
-
 class SIMULATIONSHARED_EXPORT DistributedByFunction:public RandomMagnitude{
 	Q_OBJECT
 public:

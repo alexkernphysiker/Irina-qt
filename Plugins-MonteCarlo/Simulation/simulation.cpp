@@ -1,7 +1,5 @@
 #include <SortLibGui.h>
 #include <simulation.h>
-#include <functions/functions.h>
-#include <functions/math_templates.h>
 #include "simulationview.h"
 #include "randomview.h"
 #include <QLabel>
@@ -323,11 +321,15 @@ void *MixDistributions::GetForm(){
 	return (void*)(form);
 }
 
-TblFuncGetter::TblFuncGetter(SoTblFunc *f){m_func=f;}
-SoTblFunc* TblFuncGetter::Owner(){return m_func;}
-double TblFuncGetter::F(double x){
-	return m_func->F(x,NULL,NULL);
-}
+class TblFuncGetter:public Math_::FunctionGetter{
+private:
+	SoTblFunc* m_func;
+public:
+	TblFuncGetter(SoTblFunc* f){m_func=f;}
+	virtual ~TblFuncGetter(){}
+	SoTblFunc* Owner(){return m_func;}
+	virtual double operator()(double x)override{return m_func->F(x,NULL,NULL);}
+};
 
 DistributedByFunction::DistributedByFunction(SoTblFunc *func):RandomMagnitude(func->Owner()){
 	AddType(4);
