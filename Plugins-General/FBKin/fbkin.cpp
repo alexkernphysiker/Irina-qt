@@ -4,7 +4,6 @@
 #include "splineview.h"
 #include <functions/functions.h>
 
-// ToDo: translate comments from Russian into English
 double BinaryKIN(bool &error,
 				 char returntype,//'e'- product energy(lab);
 				 //'E' - energy of collision(CM); 'T' - product emission angle(lab); I - jacobian(lab->CM)
@@ -15,11 +14,11 @@ double BinaryKIN(bool &error,
 	double A_cm = 0;
 	double I = 0;
 	try {//Kinemathics
-		double em = 931.48;//а.е.м -> МеВ
+		double em = 931.48;//a.m.u. -> MeV
 		double M = Mp + MT;
 		double b = pow(M * em,2) + 2 * MT * em * Ep_lab
 				+ pow(Mx * em,2) - pow((Mp + MT - Mx)*em, 2);
-		double pc2 = pow( Mp * em + Ep_lab ,2) - pow(Mp * em,2); //(p*c)^2 налетающей частицы
+		double pc2 = pow( Mp * em + Ep_lab ,2) - pow(Mp * em,2); //projectiles (p*c)^2
 		double bc = pc2 * pc2 / ( Mp * em + Ep_lab );
 		double xx = Mp * em / sqrt(1 - bc);
 		bc *= xx / ( xx + MT * em );
@@ -29,16 +28,17 @@ double BinaryKIN(bool &error,
 			sqrt(
 					( ec2 - pow(M * em,2 )) * ( ec2 -pow(( Mp - MT ) *em ,2)) /
 			( ec2 -pow ( M * em - Q ,2)) * ( ec2 - pow(Mx * em - ( ( M - Mx ) * em - Q ), 2) )
-			);//если эта величина больше единицы, то реакции под этим углом
-			//	соответствуют две энергии регистрируемой частицы
-		double E = M * em + Ep_lab;//полная енергия системы
+			);//If this magnitude is greater than 1, then one should get two
+			// energy values for given theta value
+		double E = M * em + Ep_lab;//full energy
 		double stm = (
 					( b * b - 4 * pow(Mx * em,2) * ( pow(M * em,2) + 2 * MT * em * Ep_lab ) ) /
 					( 4 * pow(Mx * em,2) * pc2 )
 			);// sin^2(theta_max)
-		if(( ( pow(sin(ThetaLab * 3.14 / 180), 2) < stm ) & ( ThetaLab < 90 ) ) | ( stm > 1.00009 )) {//угол должен быть допустимым
-			//пока что тут учитывается только одно из решений уравнения
-			//(потом нужно учесть возможность наличия двух решений)
+		if(( ( pow(sin(ThetaLab * 3.14 / 180), 2) < stm ) & ( ThetaLab < 90 ) ) | ( stm > 1.00009 )) {
+			//control if the angle value is valid
+			//only one energy value is calculated even
+			//if two possible values exist
 			double Ex = ( b * E + cos(ThetaLab * 3.14 / 180) * sqrt(
 				pc2 * ( b * b - 4 * pow(Mx * em ,2) * ( E * E - pc2 * pow(cos(ThetaLab * 3.14 / 180), 2) ) )
 				)
@@ -49,20 +49,20 @@ double BinaryKIN(bool &error,
 				Ex-=Mx*em;
 				return Ex;
 			}
-			//пропорционально скорости центра масс систецы
+			//this value is proportional to center-of-mass speed
 			double vC = sqrt(Ep_lab) * Mp / ( Mp + MT );
-			//пропорционально компонентам скорости регистрируемой частицы в ЛС
+			//proportional to registered particle speed components
 			double vyc = sqrt(E) * sin(ThetaLab * 3.14 / 180);
 			double vxc = sqrt(E) * cos(ThetaLab * 3.14 / 180);
 			try {
-				A_cm = atan2(vyc, ( vxc - vC ));//считаем угол в СЦМ
+				A_cm = atan2(vyc, ( vxc - vC ));//theta_CM
 			} catch (int){
 				A_cm = 3.14;
 			}
-			//считаем якобиан перехода
+			//Jakobian
 			I = ( 1 + ( vC / vyc ) * cos(ThetaLab * 3.14 / 180) ) / pow(pow(sin(ThetaLab * 3.14 / 180), 2) + pow(vC / vyc + cos(ThetaLab * 3.14 / 180), 2), 1.5);
-			A_cm *= 180 / 3.1415926;//CM
-			E_cm = pow(sqrt(Ep_lab) - vC, 2);//считаем энергию в СЦМ
+			A_cm *= 180 / 3.1415926;
+			E_cm = pow(sqrt(Ep_lab) - vC, 2);
 		} else {
 			I = 1;
 		}
