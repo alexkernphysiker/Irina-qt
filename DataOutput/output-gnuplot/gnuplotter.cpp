@@ -211,9 +211,7 @@ void Gnuplotter::run(QString script){
 	QObject::connect(gnuplot,SIGNAL(error(QProcess::ProcessError)),this,SLOT(processerror(QProcess::ProcessError)));
 	QObject::connect(gnuplot,SIGNAL(finished(int)),gnuplot,SLOT(deleteLater()));
 	gnuplot->start(gnuplotpath,QStringList()
-			#ifndef WINBUILD
 			<<"-gray"<<"-persist"
-			#endif
 			<<script);
 }
 
