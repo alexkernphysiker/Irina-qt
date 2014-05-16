@@ -1,5 +1,4 @@
 #include <SortLib.h>
-//#include <functions/functions.h>
 #include <functions/math_templates.h>
 
 
@@ -26,7 +25,7 @@ void SoTblFunc::clear_values(){X.clear();Y.clear();dY.clear();}
 
 void SoTblFunc::add_item(double x, double y, double dy){
 	int i=0;
-	if(X.count()>0)i=Math_::WhereToInsert(0,X.count()-1,X,x);
+	if(X.count()>0)i=Math_::insertIndex(X,x);
 	X.insert(i,x);Y.insert(i,y);dY.insert(i,dy);
 }
 typedef double* pdouble;
@@ -35,7 +34,7 @@ double SoTblFunc::F(double x, SoDFReader *, DataEvent *){//ToDo: use better inte
 	if(X.count()==1)return Y[0];
 	if(x<=X[0])return Y[0];
 	if(x>=X[X.count()-1])return Y[X.count()-1];
-	return Math_::Interpolate_Linear(0,X.count()-1,X,Y,x);
+	return Math_::interpolateLinear(X,Y,x);
 }
 
 void SoTblFunc::Export(){
@@ -290,7 +289,7 @@ void SoTableOfTables::Add(double y, QString name){
 	if(name=="")return;
 	int i=0;
 	if(m_yvalues.count()>0)
-		i=Math_::WhereToInsert(0,m_yvalues.count()-1,m_yvalues,y);
+		i=Math_::insertIndex(m_yvalues,y);
 	m_yvalues.insert(i,y);m_unarynames.insert(i,name);
 	changed(this);
 }
@@ -299,7 +298,7 @@ double SoTableOfTables::F(double x, double y, SoDFReader *dr, DataEvent *event){
 	if(Count()==1)return Owner()->GetUnary(m_unarynames[0],x,dr,event);
 	int i=0;
 	if(m_yvalues.count()>0)
-		i=Math_::WhereToInsert(0,m_yvalues.count()-1,m_yvalues,y);
+		i=Math_::insertIndex(m_yvalues,y);
 	if(i==0)i++;
 	double fi=Owner()->GetUnary(m_unarynames[i],x,dr,event);
 	double fn=Owner()->GetUnary(m_unarynames[i-1],x,dr,event);
