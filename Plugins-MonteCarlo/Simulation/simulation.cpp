@@ -321,17 +321,9 @@ void *MixDistributions::GetForm(){
 	return (void*)(form);
 }
 
-class TblFuncGetter:public Math_::FunctionGetter{
-private:
-	SoTblFunc* m_func;
-public:
-	TblFuncGetter(SoTblFunc* f){m_func=f;}
-	virtual ~TblFuncGetter(){}
-	SoTblFunc* Owner(){return m_func;}
-	virtual double operator()(double x)override{return m_func->F(x,NULL,NULL);}
-};
-
+double TblFuncGetter::operator ()(double x){return m_func->F(x,NULL,NULL);}
 DistributedByFunction::DistributedByFunction(SoTblFunc *func):RandomMagnitude(func->Owner()){
+	m_getter= new TblFuncGetter(func);
 	AddType(4);
 	randomizer=NULL;
 	m_func=func;
@@ -341,7 +333,7 @@ DistributedByFunction::DistributedByFunction(SoTblFunc *func):RandomMagnitude(fu
 	connect(func,SIGNAL(changed(SObject*)),this,SLOT(getdata()));
 }
 DistributedByFunction::DistributedByFunction(QDataStream &str, SortProject *father):RandomMagnitude(str,father){
-	AddType(4);maxval=1;
+	AddType(4);maxval=1;m_getter=NULL;
 	randomizer=NULL;
 	m_func=NULL;
 	int ind=-1;
@@ -350,6 +342,7 @@ DistributedByFunction::DistributedByFunction(QDataStream &str, SortProject *fath
 	if(so!=NULL){
 		if(so->Is(SOT_SoTblFunc)){
 			m_func=dynamic_cast<SoTblFunc*>(so);
+			m_getter=new TblFuncGetter(m_func);
 			getdata();
 			connect(m_func,SIGNAL(deleting()),this, SLOT(remove()));
 			connect(m_func,SIGNAL(changed(SObject*)),this,SLOT(getdata()));
@@ -365,6 +358,7 @@ void DistributedByFunction::Save(QDataStream &str){
 }
 DistributedByFunction::~DistributedByFunction(){
 	if(randomizer!=NULL)delete randomizer;
+	if(m_getter!=NULL)delete m_getter;
 }
 QString DistributedByFunction::DisplayName(){return "FUNC::RAND::CUSTOMDISTR "+Name();}
 void *DistributedByFunction::GetForm(){
@@ -376,7 +370,7 @@ void *DistributedByFunction::GetForm(){
 void DistributedByFunction::getdata(){
 	if(m_func==NULL)return;
 	if(randomizer!=NULL)delete randomizer;
-	randomizer=new Math_::RandomValueGenerator(new TblFuncGetter(m_func));
+	randomizer=new Math_::RandomValueGenerator<double,TblFuncGetter>(*m_getter);
 	int cnt=m_func->Count();
 	if(cnt<2)return;
 	double x1=0;
@@ -392,7 +386,7 @@ double DistributedByFunction::Value(SoDFReader*, DataEvent *event){
 	if(m_func==NULL)return 0;
 	if(last!=event){
 		last=event;
-		lastval=randomizer->GetValue();
+		lastval=(*randomizer)();
 	}
 	return lastval;
 }

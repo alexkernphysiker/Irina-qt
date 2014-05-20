@@ -122,6 +122,17 @@ private:
 	QList<SubDistr> data;
 };
 
+class TblFuncGetter{
+private:
+	SoTblFunc* m_func;
+public:
+	TblFuncGetter(){m_func=NULL;}
+	TblFuncGetter(TblFuncGetter &f){m_func=f.m_func;}
+	TblFuncGetter(SoTblFunc* f){m_func=f;}
+	virtual ~TblFuncGetter(){}
+	SoTblFunc* Owner(){return m_func;}
+	double operator()(double x);
+};
 class SIMULATIONSHARED_EXPORT DistributedByFunction:public RandomMagnitude{
 	Q_OBJECT
 public:
@@ -137,7 +148,8 @@ private slots:
 	void getdata();
 private:
 	SoTblFunc *m_func;
-	Math_::RandomValueGenerator* randomizer;
+	TblFuncGetter *m_getter;
+	Math_::RandomValueGenerator<double,TblFuncGetter>* randomizer;
 };
 
 class SIMULATIONSHARED_EXPORT SoBinarySumm:public SoBinaryOperator{
