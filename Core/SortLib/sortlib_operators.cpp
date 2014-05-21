@@ -1,5 +1,5 @@
 #include <SortLib.h>
-#include <functions/math_templates.h>
+#include <functions/templates.h>
 
 
 SoUnaryOperator::SoUnaryOperator(SortProject *proj):SObject(proj){AddType(5);}

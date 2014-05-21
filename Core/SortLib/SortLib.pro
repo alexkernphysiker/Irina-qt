@@ -1,7 +1,6 @@
 include("../../../qt_build_path.pri")
 include("../../qt_inc_paths.pri")
 #MathLibs
-LIBS += -L$$DEPENDPATH -lmath_func
 LIBS += -L$$DEPENDPATH -lmath_expression
 #project configuration
 QT       -= gui

@@ -3,7 +3,6 @@ include("../../qt_inc_paths.pri")
 #Irina-qt
 LIBS += -L$$DESTDIR -lSortLib
 #MathLibs
-LIBS += -L$$DEPENDPATH -lmath_func
 LIBS += -L$$DEPENDPATH -lmath_expression
 #project configuration
 QT       += core gui

@@ -3,8 +3,6 @@ include("../../../qt_build_path.pri")
 #Irina-qt
 LIBS += -L$$DESTDIR -lSortLib
 LIBS += -L$$DESTDIR -lSortLibGui
-#MathLibs
-LIBS += -L$$DEPENDPATH -lmath_func
 #project configuration
 QT       += core gui
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets

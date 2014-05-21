@@ -1,8 +1,8 @@
+#include <functions/templates.h>
 #include "enlos.h"
 #include "enlosview.h"
 #include "enlossintargetview.h"
 #include <functions/functions.h>
-#include <functions/math_templates.h>
 #include <QMutexLocker>
 
 double GetFinalEnergy(double E, double de, double X, SortProject *proj, QString stp,SoDFReader *fr, DataEvent *event){

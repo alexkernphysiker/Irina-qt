@@ -1,5 +1,6 @@
 #ifndef SIMULATION_H
 #define SIMULATION_H
+#include <functions/templates.h>
 #include <QtCore/qglobal.h>
 #include <QObject>
 #include <SortLib.h>
