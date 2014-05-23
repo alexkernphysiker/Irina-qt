@@ -4,7 +4,6 @@ include("../../qt_inc_paths.pri")
 LIBS += -L$$DESTDIR -lSortLib
 LIBS += -L$$DESTDIR -lSortLibGui
 #MathLibs
-LIBS += -L$$DEPENDPATH -lmath_func
 LIBS += -L$$DEPENDPATH -lmath_expression
 #project configuration
 CONFIG += plugin

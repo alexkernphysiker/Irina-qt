@@ -4,7 +4,7 @@
 #include <QList>
 
 QString sortlibversion(){
-	return "4.0";
+	return "4.1";
 }
 
 QList<SoTypeReg*> registered_types;

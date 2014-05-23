@@ -160,7 +160,7 @@ QString RandomMagnitude::DisplayName(){
 double RandomMagnitude::Value(SoDFReader */*fr*/, DataEvent *event){
 	if(last!=event){
 		last=event;
-		lastval=Math_::RandomUniformly(0,maxval);
+		lastval=Math_::RandomUniformly(0.0,maxval);
 	}
 	return lastval;
 }

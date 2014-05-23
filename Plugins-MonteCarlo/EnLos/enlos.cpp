@@ -2,7 +2,7 @@
 #include "enlos.h"
 #include "enlosview.h"
 #include "enlossintargetview.h"
-#include <functions/functions.h>
+#include <functions/randomfunc.h>
 #include <QMutexLocker>
 
 double GetFinalEnergy(double E, double de, double X, SortProject *proj, QString stp,SoDFReader *fr, DataEvent *event){
@@ -280,7 +280,7 @@ double EnLossInTarget::Value(SoDFReader *fr, DataEvent *event){
 	double Xx=thickness;
 	{
 		//describes the position of interaction point inside the target
-		double pos_rel=Math_::RandomUniformly(0,1);
+		double pos_rel=Math_::RandomUniformly<double>(0,1);
 		{//Xp - projectile particle's run through target before interaction
 			double cos_th=Owner()->GetUnary("abs",	Owner()->GetUnary("cosd",thetat,fr,event),fr,event);
 			if(cos_th==0)return 0;//wrong target position
@@ -306,7 +306,7 @@ double EnLossInTarget::Value(SoDFReader *fr, DataEvent *event){
 		prob_tbl[0]=0;
 		for(int i=1; i<=sz;i++)
 			prob_tbl[i]=Owner()->GetBinary(CrossSection(),dE()*i,E,fr,event)*dE()+prob_tbl[i-1];
-		double en_det=Math_::RandomUniformly(0,prob_tbl[sz]);
+		double en_det=Math_::RandomUniformly<double>(0,prob_tbl[sz]);
 		int i=Math_::WhereToInsert(0,sz,prob_tbl,en_det);
 		E=i*m_dE;
 		E-=m_dE*(prob_tbl[i] - en_det)/(prob_tbl[i]-prob_tbl[i-1]);

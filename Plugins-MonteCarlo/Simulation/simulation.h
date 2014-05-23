@@ -5,7 +5,7 @@
 #include <QObject>
 #include <SortLib.h>
 #include <SortLibGui.h>
-#include <functions/functions.h>
+#include <functions/randomfunc.h>
 #if defined(SIMULATION_LIBRARY)
 #  define SIMULATIONSHARED_EXPORT Q_DECL_EXPORT
 #else

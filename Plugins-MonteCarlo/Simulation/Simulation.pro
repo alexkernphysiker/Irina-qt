@@ -3,8 +3,6 @@ include("../../qt_inc_paths.pri")
 #Irina-qt
 LIBS += -L$$DESTDIR -lSortLib
 LIBS += -L$$DESTDIR -lSortLibGui
-#MathLibs
-LIBS += -L$$DEPENDPATH -lmath_func
 #project configuration
 CONFIG += plugin
 TEMPLATE = lib
