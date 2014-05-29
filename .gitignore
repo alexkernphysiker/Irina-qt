@@ -40,3 +40,5 @@ object_script*
 *.toc
 *.nav
 *.snm
+*.bbl
+*.blg
