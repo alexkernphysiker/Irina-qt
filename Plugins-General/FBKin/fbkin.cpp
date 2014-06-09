@@ -2,7 +2,7 @@
 #include "kinview.h"
 #include "ruthview.h"
 #include "splineview.h"
-#include <functions/functions.h>
+#include <math_h/functions.h>
 
 double BinaryKIN(bool &error,
 				 char returntype,//'e'- product energy(lab);

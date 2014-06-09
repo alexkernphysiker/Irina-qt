@@ -1,5 +1,5 @@
 include("../../qt_inc_paths.pri")
-include("../../../qt_build_path.pri")
+include("../../qt_build_path.pri")
 #Irina-qt
 LIBS += -L$$DESTDIR -lSortLib
 LIBS += -L$$DESTDIR -lSortLibGui
