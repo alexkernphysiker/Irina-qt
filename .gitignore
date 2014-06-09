@@ -1,4 +1,7 @@
 *~
+bin
+qt_build_path.pri
+
 # Compiled Object files
 *.slo
 *.lo
@@ -19,6 +22,7 @@
 *.exe
 
 #qt creator
+qrc_*.cpp
 moc_*.cpp
 ui_*.h
 Makefile

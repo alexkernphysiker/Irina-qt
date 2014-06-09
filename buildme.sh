@@ -1,9 +1,7 @@
 #/bin/bash
-cd ..
 cd MathLibs
 ./buildme.sh
 cd ..
-cd Irina-qt
 cd Core
 cd SortLib
 qmake SortLib.pro

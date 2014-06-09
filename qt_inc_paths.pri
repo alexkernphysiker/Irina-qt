@@ -7,4 +7,4 @@
 INCLUDEPATH += ../../Core/Irina-qt-headers
 INCLUDEPATH += ../..#root of this repository
 #MathLibs includes
-INCLUDEPATH += ../../../MathLibs
+INCLUDEPATH += ../../MathLibs

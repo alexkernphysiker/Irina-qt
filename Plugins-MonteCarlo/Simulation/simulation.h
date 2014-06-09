@@ -1,11 +1,11 @@
 #ifndef SIMULATION_H
 #define SIMULATION_H
-#include <functions/templates.h>
+#include <math_h/templates.h>
 #include <QtCore/qglobal.h>
 #include <QObject>
 #include <SortLib.h>
 #include <SortLibGui.h>
-#include <functions/randomfunc.h>
+#include <math_h/randomfunc.h>
 #if defined(SIMULATION_LIBRARY)
 #  define SIMULATIONSHARED_EXPORT Q_DECL_EXPORT
 #else
