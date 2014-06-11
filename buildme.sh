@@ -1,6 +1,9 @@
 #/bin/bash
 cd MathLibs
-./buildme.sh
+cd expression
+qmake expression.pro
+make
+cd ..
 cd ..
 cd Core
 cd SortLib
