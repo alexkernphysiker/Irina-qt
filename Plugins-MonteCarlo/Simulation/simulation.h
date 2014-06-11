@@ -150,7 +150,7 @@ private slots:
 private:
 	SoTblFunc *m_func;
 	TblFuncGetter *m_getter;
-	Math_::RandomValueGenerator<double,TblFuncGetter>* randomizer;
+	RandomValueGenerator<double,TblFuncGetter>* randomizer;
 };
 
 class SIMULATIONSHARED_EXPORT SoBinarySumm:public SoBinaryOperator{

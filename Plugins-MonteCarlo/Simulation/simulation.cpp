@@ -160,7 +160,7 @@ QString RandomMagnitude::DisplayName(){
 double RandomMagnitude::Value(SoDFReader */*fr*/, DataEvent *event){
 	if(last!=event){
 		last=event;
-		lastval=Math_::RandomUniformly(0.0,maxval);
+		lastval=RandomUniformly(0.0,maxval);
 	}
 	return lastval;
 }
@@ -195,7 +195,7 @@ QString GaussMagnitude::DisplayName(){
 double GaussMagnitude::Value(SoDFReader */*fr*/, DataEvent *event){
 	if(last!=event){
 		last=event;
-		lastval=Math_::RandomGauss(sigma,average,maxval);
+		lastval=RandomGauss(sigma,average,maxval);
 	}
 	return lastval;
 }
@@ -308,7 +308,7 @@ double MixDistributions::Value(SoDFReader *fr, DataEvent *event){
 	}
 	double rand=RandomMagnitude::Value(fr,event);
 	uint index=0;
-	if(Count()>0) index=Math_::WhereToInsert(0,Count()-1,table,rand);
+	if(Count()>0) index=WhereToInsert(0,Count()-1,table,rand);
 	if(index>=Count())throw;
 	val=0;
 	Owner()->GetVar(Function(index),&val,fr,event);
@@ -370,7 +370,7 @@ void *DistributedByFunction::GetForm(){
 void DistributedByFunction::getdata(){
 	if(m_func==NULL)return;
 	if(randomizer!=NULL)delete randomizer;
-	randomizer=new Math_::RandomValueGenerator<double,TblFuncGetter>(*m_getter);
+	randomizer=new RandomValueGenerator<double,TblFuncGetter>(*m_getter);
 	int cnt=m_func->Count();
 	if(cnt<2)return;
 	double x1=0;

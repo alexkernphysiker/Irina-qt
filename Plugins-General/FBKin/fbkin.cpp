@@ -270,7 +270,7 @@ double SoSP1Line::F(double ex, double Ep, SoDFReader *dr, DataEvent *event){
 	Owner()->GetVar(m_sigma,&sigma,dr,event);
 	double n=1;
 	Owner()->GetVar(m_N,&n,dr,event);
-	return n*Math_::Gaussian(ex,Ex,sigma);
+	return n*Gaussian(ex,Ex,sigma);
 }
 
 void* SoSP1Line::GetForm(){return new splineview(this);}
