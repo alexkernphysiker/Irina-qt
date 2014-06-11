@@ -1,5 +1,5 @@
 #/bin/bash
 mkdir bin 
-echo DESTDIR = $PWD/bin$'\n'ROOTDEPENDPATH = /usr/lib64/root/$'\n'ROOTINCLUDEPATH = /usr/include/root$'\n'DEPENDPATH += \$\$DESTDIR $'\n'QMAKE_CXXFLAGS+= -std=c++11$'\n'QMAKE_LFLAGS += -Wl,--rpath=\$\$DESTDIR > qt_build_path.pri
+echo DESTDIR = $PWD/bin$'\n'DEPENDPATH += \$\$DESTDIR $'\n'QMAKE_CXXFLAGS+= -std=c++11$'\n'QMAKE_LFLAGS += -Wl,--rpath=\$\$DESTDIR > qt_build_path.pri
 git submodule init
 git submodule update
