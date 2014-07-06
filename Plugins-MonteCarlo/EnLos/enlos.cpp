@@ -1,4 +1,3 @@
-#include <math_h/templates.h>
 #include "enlos.h"
 #include "enlosview.h"
 #include "enlossintargetview.h"
