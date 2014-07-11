@@ -20,10 +20,8 @@ Plugins-MonteCarlo/ - the description and the source code of
 Build requires libqt and libqt-devel packages installed on your system.
 Data output plugin uses gnuplot, so it should also be installed.
 The configuration and build can be done automatically.
-Run script "1-autoconf.sh" for creating directory for binaries
+Run script "autoconf.sh" for creating directory for binaries
 and file qt_build_path.pri required for all qmake projects here.
 Edit this file if needed (View it to see if it's needed!!!!)
-After creating this file please run "2-get_dep.sh" script for downloading
-required repository with calculation routines. 
-Then you may run "3-buildme.sh" for building 
+Then you may run "buildme.sh" for building 
 and the binaries should appear in ../bin directory
