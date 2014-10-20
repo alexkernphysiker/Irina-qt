@@ -1,104 +1,27 @@
 #/bin/bash
-cd MathLibs
-cd expression
-qmake expression.pro
+(cd MathLibs/expression;qmake expression.pro;make)
 if (( $? )); then exit 1;fi
-make clean
-make
+(cd Core/SortLib;qmake SortLib.pro;make)
 if (( $? )); then exit 1;fi
-cd ..
-cd ..
-cd Core
-cd SortLib
-qmake SortLib.pro
+(cd Core/SortLibGui;qmake SortLibGui.pro;make)
 if (( $? )); then exit 1;fi
-make clean
-make
+(cd Core/Irina-qt-executable;qmake irina-qt-executable.pro;make)
 if (( $? )); then exit 1;fi
-cd ..
-cd SortLibGui
-qmake SortLibGui.pro
+(cd DataOutput/output-gnuplot;qmake output-gnuplot.pro;make)
 if (( $? )); then exit 1;fi
-make clean
-make
+(cd Plugins-DataInput/format_text;qmake format_text.pro;make)
 if (( $? )); then exit 1;fi
-cd ..
-cd Irina-qt-executable
-qmake irina-qt-executable.pro
+cd Plugins-DataInput/formats_KINR;qmake formats_KINR.pro;make)
 if (( $? )); then exit 1;fi
-make clean
-make
+(cd Plugins-General/DataGroup;qmake DataGroup.pro;make)
 if (( $? )); then exit 1;fi
-cd ..
-cd ..
-cd DataOutput
-cd output-gnuplot
-qmake output-gnuplot.pro
+cd Plugins-General/FBKin;qmake FBKin.pro;make)
 if (( $? )); then exit 1;fi
-make clean
-make
+(cd Plugins-General/Masks;qmake Masks.pro;make)
 if (( $? )); then exit 1;fi
-cd ..
-cd ..
-cd Plugins-DataInput
-cd format_text
-qmake format_text.pro
+(cd Plugins-General/NumericErrorsCalculation;qmake NumericErrorsCalculation.pro;make)
 if (( $? )); then exit 1;fi
-make clean
-make
+(cd Plugins-MonteCarlo/Simulation;qmake Simulation.pro;make)
 if (( $? )); then exit 1;fi
-cd ..
-cd formats_KINR
-qmake formats_KINR.pro
+(cd Plugins-MonteCarlo/EnLos;qmake EnLos.pro;make)
 if (( $? )); then exit 1;fi
-make clean
-make
-if (( $? )); then exit 1;fi
-cd ..
-cd ..
-cd Plugins-General
-cd DataGroup
-qmake DataGroup.pro
-if (( $? )); then exit 1;fi
-make clean
-make
-if (( $? )); then exit 1;fi
-cd ..
-cd FBKin
-qmake FBKin.pro
-if (( $? )); then exit 1;fi
-make clean
-make
-if (( $? )); then exit 1;fi
-cd ..
-cd Masks
-qmake Masks.pro
-if (( $? )); then exit 1;fi
-make clean
-make
-if (( $? )); then exit 1;fi
-cd ..
-cd NumericErrorsCalculation
-qmake NumericErrorsCalculation.pro
-if (( $? )); then exit 1;fi
-make clean
-make
-if (( $? )); then exit 1;fi
-cd ..
-cd ..
-cd Plugins-MonteCarlo
-cd Simulation
-qmake Simulation.pro
-if (( $? )); then exit 1;fi
-make clean
-make
-if (( $? )); then exit 1;fi
-cd ..
-cd EnLos
-qmake EnLos.pro
-if (( $? )); then exit 1;fi
-make clean
-make
-if (( $? )); then exit 1;fi
-cd ..
-cd ..
