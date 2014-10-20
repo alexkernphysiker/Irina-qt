@@ -11,11 +11,11 @@ if (( $? )); then exit 1;fi
 if (( $? )); then exit 1;fi
 (cd Plugins-DataInput/format_text;qmake format_text.pro;make)
 if (( $? )); then exit 1;fi
-cd Plugins-DataInput/formats_KINR;qmake formats_KINR.pro;make)
+(cd Plugins-DataInput/formats_KINR;qmake formats_KINR.pro;make)
 if (( $? )); then exit 1;fi
 (cd Plugins-General/DataGroup;qmake DataGroup.pro;make)
 if (( $? )); then exit 1;fi
-cd Plugins-General/FBKin;qmake FBKin.pro;make)
+(cd Plugins-General/FBKin;qmake FBKin.pro;make)
 if (( $? )); then exit 1;fi
 (cd Plugins-General/Masks;qmake Masks.pro;make)
 if (( $? )); then exit 1;fi
