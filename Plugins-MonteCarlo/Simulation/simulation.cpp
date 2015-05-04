@@ -160,7 +160,7 @@ QString RandomMagnitude::DisplayName(){
 double RandomMagnitude::Value(SoDFReader */*fr*/, DataEvent *event){
 	if(last!=event){
 		last=event;
-		lastval=RandomUniformly(0.0,maxval);
+		lastval=RandomUniformlyR(0.0,maxval);
 	}
 	return lastval;
 }
@@ -369,8 +369,6 @@ void *DistributedByFunction::GetForm(){
 }
 void DistributedByFunction::getdata(){
 	if(m_func==NULL)return;
-	if(randomizer!=NULL)delete randomizer;
-	randomizer=new RandomValueGenerator<double,TblFuncGetter>(*m_getter);
 	int cnt=m_func->Count();
 	if(cnt<2)return;
 	double x1=0;
@@ -379,7 +377,11 @@ void DistributedByFunction::getdata(){
 	m_func->GetItem(0,x1,y,s);
 	m_func->GetItem(cnt-1,x2,y,s);
 	s=(x2-x1)/(cnt*100);
-	randomizer->Init(x1,x2,s);
+	if(randomizer!=NULL)delete randomizer;
+	randomizer=new RandomValueGenerator<double>(
+		[this](double x){return m_getter->operator ()(x);},
+		x1,x2,s
+	);
 }
 
 double DistributedByFunction::Value(SoDFReader*, DataEvent *event){
