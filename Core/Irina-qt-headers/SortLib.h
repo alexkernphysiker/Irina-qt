@@ -1,3 +1,5 @@
+// this file is distributed under
+// GPL v 3.0 license
 #ifndef SORTPROJECT_H
 #define SORTPROJECT_H
 #include <QtCore/qglobal.h>

@@ -1,3 +1,5 @@
+// this file is distributed under
+// GPL v 3.0 license
 #include "ecalview.h"
 #include "ui_ecalview.h"
 #include "sp2open.h"

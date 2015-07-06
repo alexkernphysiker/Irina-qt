@@ -1,3 +1,5 @@
+// this file is distributed under
+// GPL v 3.0 license
 #include "enlos.h"
 #include "enlosview.h"
 #include "enlossintargetview.h"
@@ -265,6 +267,7 @@ void EnLossInTarget::remove_cstbl(){
 }
 
 double EnLossInTarget::Value(SoDFReader *fr, DataEvent *event){
+	std::uniform_real_distribution<double> _0_1_(0,1);
 	//Getting values
 	double E=0;
 	Owner()->GetVar(Energy(),&E,fr,event);
@@ -279,7 +282,7 @@ double EnLossInTarget::Value(SoDFReader *fr, DataEvent *event){
 	double Xx=thickness;
 	{
 		//describes the position of interaction point inside the target
-		double pos_rel=RandomUniformlyR<double>(0,1);
+		double pos_rel=_0_1_(generator);
 		{//Xp - projectile particle's run through target before interaction
 			double cos_th=Owner()->GetUnary("abs",	Owner()->GetUnary("cosd",thetat,fr,event),fr,event);
 			if(cos_th==0)return 0;//wrong target position
@@ -305,7 +308,7 @@ double EnLossInTarget::Value(SoDFReader *fr, DataEvent *event){
 		prob_tbl[0]=0;
 		for(int i=1; i<=sz;i++)
 			prob_tbl[i]=Owner()->GetBinary(CrossSection(),dE()*i,E,fr,event)*dE()+prob_tbl[i-1];
-		double en_det=RandomUniformlyR<double>(0,prob_tbl[sz]);
+		double en_det=_0_1_(generator)*prob_tbl[sz];
 		int i=WhereToInsert(0,sz,prob_tbl,en_det);
 		E=i*m_dE;
 		E-=m_dE*(prob_tbl[i] - en_det)/(prob_tbl[i]-prob_tbl[i-1]);

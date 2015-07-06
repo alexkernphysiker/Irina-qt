@@ -1,3 +1,5 @@
+// this file is distributed under
+// GPL v 3.0 license
 #ifndef SETTINGSWINDOW_H
 #define SETTINGSWINDOW_H
 

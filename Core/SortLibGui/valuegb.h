@@ -1,10 +1,9 @@
+// this file is distributed under
+// GPL v 3.0 license
 #ifndef VALUEGB_H
 #define VALUEGB_H
-
 #include <QGroupBox>
 #include <SortLib.h>
-
-
 namespace Ui {
 	class valuegb;
 }
@@ -24,5 +23,4 @@ private:
 	Ui::valuegb *ui;
 	SoValue *m_value;
 };
-
 #endif // VALUEGB_H

@@ -1,3 +1,5 @@
+// this file is distributed under
+// GPL v 3.0 license
 #ifndef SIMULATION_H
 #define SIMULATION_H
 #include <QtCore/qglobal.h>
@@ -74,6 +76,7 @@ public:
 	virtual void* GetForm()override;
 	double MaxVal();
 protected:
+	std::default_random_engine generator;
 	double maxval;
 	double lastval;
 	DataEvent *last;

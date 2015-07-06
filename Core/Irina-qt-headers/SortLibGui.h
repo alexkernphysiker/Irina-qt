@@ -1,3 +1,5 @@
+// this file is distributed under
+// GPL v 3.0 license
 #ifndef SORTPROJECTVIEW_H
 #define SORTPROJECTVIEW_H
 #include <QtCore/qglobal.h>

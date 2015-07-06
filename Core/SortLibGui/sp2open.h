@@ -1,3 +1,5 @@
+// this file is distributed under
+// GPL v 3.0 license
 #ifndef SP2OPEN_H
 #define SP2OPEN_H
 #include <QDialog>

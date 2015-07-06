@@ -1,3 +1,5 @@
+// this file is distributed under
+// GPL v 3.0 license
 #include <Core/SortLib/sortlib_.h>
 #include "outputextensionselector.h"
 #include "ui_outputextensionselector.h"

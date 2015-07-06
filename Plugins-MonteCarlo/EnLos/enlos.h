@@ -1,8 +1,10 @@
+// this file is distributed under
+// GPL v 3.0 license
 #ifndef ENLOSINTARGET_H
 #define ENLOSINTARGET_H
 #include <SortLib.h>
 #include <SortLibGui.h>
-
+#include <random>
 #define SOT_EnLos 0x011010
 #define SOT_EnLosInTarget 0x021010
 
@@ -76,6 +78,7 @@ private:
 	double m_dE;
 	double m_Emax;
 	QString m_d3cs_domegadE;
+	std::default_random_engine generator;
 	QMutex m_mutex;
 };
 //*/

@@ -1,3 +1,5 @@
+// this file is distributed under
+// GPL v 3.0 license
 #ifndef SP1OPEN_H
 #define SP1OPEN_H
 

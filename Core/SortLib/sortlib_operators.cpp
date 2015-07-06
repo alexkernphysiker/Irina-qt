@@ -1,3 +1,5 @@
+// this file is distributed under
+// GPL v 3.0 license
 #include <SortLib.h>
 #include <math_h/interpolate.h>
 

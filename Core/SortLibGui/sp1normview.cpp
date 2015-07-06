@@ -1,3 +1,5 @@
+// this file is distributed under
+// GPL v 3.0 license
 #include "sp1normview.h"
 #include "ui_sp1normview.h"
 

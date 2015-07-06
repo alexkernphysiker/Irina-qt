@@ -1,3 +1,5 @@
+// this file is distributed under
+// GPL v 3.0 license
 #include "splineview.h"
 #include "ui_splineview.h"
 

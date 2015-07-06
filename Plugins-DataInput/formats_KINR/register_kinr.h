@@ -1,3 +1,5 @@
+// this file is distributed under
+// GPL v 3.0 license
 #ifndef REGISTER_KINR_H
 #define REGISTER_KINR_H
 #include <plugin_interface.h>

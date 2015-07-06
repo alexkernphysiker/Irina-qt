@@ -1,3 +1,5 @@
+// this file is distributed under
+// GPL v 3.0 license
 #include "gnuplotter.h"
 #include <SortLibGui.h>
 #include "register-gnuplot-ext.h"

@@ -1,3 +1,5 @@
+// this file is distributed under
+// GPL v 3.0 license
 #ifndef EXPRESSION_H_EXPR_LIB
 #define EXPRESSION_H_EXPR_LIB
 #define MATH__EXPR_NOTYPE 0

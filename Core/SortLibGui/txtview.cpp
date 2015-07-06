@@ -1,3 +1,5 @@
+// this file is distributed under
+// GPL v 3.0 license
 #include "txtview.h"
 #include "ui_txtview.h"
 #include <QFileDialog>

@@ -1,3 +1,5 @@
+// this file is distributed under
+// GPL v 3.0 license
 #include "textfile.h"
 TxtData::TxtData(QString Path, SortProject *father):SoDFReader(Path,father){AddType( 2);Set_NADC(1);}
 TxtData::TxtData(QDataStream &str, SortProject *father):SoDFReader(str,father){AddType(2);Set_NADC(1);}

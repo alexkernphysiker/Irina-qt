@@ -1,3 +1,5 @@
+// this file is distributed under
+// GPL v 3.0 license
 #include "datagroupview.h"
 #include "ui_datagroupview.h"
 #include <Core/SortLib/sortlib_.h>

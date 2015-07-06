@@ -1,3 +1,5 @@
+// this file is distributed under
+// GPL v 3.0 license
 #include <additional.h>
 #include "locview.h"
 #include "ui_locview.h"

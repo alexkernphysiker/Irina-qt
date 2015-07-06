@@ -1,3 +1,5 @@
+// this file is distributed under
+// GPL v 3.0 license
 #ifndef SORTLIBGUIINTERFACE_H
 #define SORTLIBGUIINTERFACE_H
 #include <SortLib.h>

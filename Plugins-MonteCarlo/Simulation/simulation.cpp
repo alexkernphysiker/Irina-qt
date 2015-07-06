@@ -1,3 +1,5 @@
+// this file is distributed under
+// GPL v 3.0 license
 #include <SortLibGui.h>
 #include <simulation.h>
 #include "simulationview.h"
@@ -160,7 +162,8 @@ QString RandomMagnitude::DisplayName(){
 double RandomMagnitude::Value(SoDFReader */*fr*/, DataEvent *event){
 	if(last!=event){
 		last=event;
-		lastval=RandomUniformlyR(0.0,maxval);
+		std::uniform_real_distribution<double> distr(0.0,maxval);
+		lastval=distr(generator);
 	}
 	return lastval;
 }
@@ -195,7 +198,8 @@ QString GaussMagnitude::DisplayName(){
 double GaussMagnitude::Value(SoDFReader */*fr*/, DataEvent *event){
 	if(last!=event){
 		last=event;
-		lastval=RandomGauss(sigma,average,maxval);
+		std::normal_distribution<double> distr(average,sigma);
+		lastval=distr(generator);
 	}
 	return lastval;
 }

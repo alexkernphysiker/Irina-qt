@@ -1,3 +1,5 @@
+// this file is distributed under
+// GPL v 3.0 license
 #ifndef BINSUMVIEW_H
 #define BINSUMVIEW_H
 

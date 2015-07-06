@@ -1,3 +1,5 @@
+// this file is distributed under
+// GPL v 3.0 license
 #ifndef TEXTFILE_H
 #define TEXTFILE_H
 #include <SortLib.h>

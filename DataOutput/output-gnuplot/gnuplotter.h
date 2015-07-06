@@ -1,3 +1,5 @@
+// this file is distributed under
+// GPL v 3.0 license
 #ifndef GNUGnuplotter_H
 #define GNUGnuplotter_H
 #include <SortLib.h>

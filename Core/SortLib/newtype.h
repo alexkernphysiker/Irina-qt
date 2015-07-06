@@ -1,3 +1,5 @@
+// this file is distributed under
+// GPL v 3.0 license
 #ifndef NEWTYPE_H
 #define NEWTYPE_H
 #include <SortLib.h>

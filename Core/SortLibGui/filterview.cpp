@@ -1,3 +1,5 @@
+// this file is distributed under
+// GPL v 3.0 license
 #include "filterview.h"
 #include "ui_filterview.h"
 #include <locview.h>

@@ -1,3 +1,5 @@
+// this file is distributed under
+// GPL v 3.0 license
 #ifndef NUMERICERRORSCALCULATION_H
 #define NUMERICERRORSCALCULATION_H
 #include <SortLib.h>

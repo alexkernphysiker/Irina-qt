@@ -1,3 +1,5 @@
+// this file is distributed under
+// GPL v 3.0 license
 #ifndef ERRORLOG_H
 #define ERRORLOG_H
 #include <QDialog>
