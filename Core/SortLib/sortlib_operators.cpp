@@ -291,7 +291,7 @@ void SoTableOfTables::Add(double y, QString name){
 	if(name=="")return;
 	int i=0;
 	if(m_yvalues.count()>0)
-		i=WhereToInsert(0,m_yvalues.count(),m_yvalues,y);
+		i=WhereToInsert(0,m_yvalues.count()-1,m_yvalues,y);
 	m_yvalues.insert(i,y);m_unarynames.insert(i,name);
 	changed(this);
 }
