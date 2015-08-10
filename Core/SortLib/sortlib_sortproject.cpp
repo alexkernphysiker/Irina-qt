@@ -435,6 +435,14 @@ double SortProject::GetBinary(QString name, double x, double y, SoDFReader *dr, 
 			return 0;
 		}
 	}
+	if((name.compare("%",Qt::CaseInsensitive)==0)|(name.compare("mod",Qt::CaseInsensitive)==0)){
+		if(0.0!=y){
+			return double(long(x)%long(y));
+		}else {
+			catcherror("Arithmetic error: division by zero");
+			return 0;
+		}
+	}
 	if((name.compare("pow",Qt::CaseInsensitive)==0)|(name.compare("^",Qt::CaseInsensitive)==0))
 		return pow(x,y);
 	//User defined operators
