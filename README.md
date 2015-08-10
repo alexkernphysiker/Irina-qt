@@ -14,9 +14,6 @@ Plugins-DataInput - the source code of modules for providing different
 Plugins-General/ - the description and the source code of plugins
       for general purpose.
 
-Plugins-MonteCarlo/ - the description and the source code of
-      plugins providing Monte Carlo simulation algorithms.
-
 Build requires libqt and libqt-devel packages installed on your system.
 Data output plugin uses gnuplot, so it should also be installed.
 The configuration and build can be done automatically.
