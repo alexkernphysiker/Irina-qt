@@ -40,8 +40,7 @@ DataEvent *TxtData::NextEvent(QDataStream &datastr){
 		if(num[0]=='.')num="0"+num;
 		x[i]=num.toDouble(&ok);
 		if(!ok){
-			x[i]=0;
-			error("invalid number format in column "+QString::number(i));
+			x[i]=INFINITY;
 		}
 	}
 	if(eventsread()==0){//get column number
